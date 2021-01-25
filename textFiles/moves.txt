@@ -1,0 +1,14 @@
+growl
+punch
+kick
+bite
+heal
+tackle
+slam
+doublekick
+fury attack
+quick attack
+gigaSlam
+headbutt
+takedown
+

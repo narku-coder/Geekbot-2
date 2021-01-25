@@ -1,0 +1,11 @@
+Dog
+Cat
+Tiger
+Wolf
+Giraffe
+Goldfish
+Hamster
+Ferret
+Mouse
+Arctic Fox
+Rock

@@ -1,0 +1,5 @@
+cookie 20
+soda 20
+brownies 40
+pizza 48
+cake 100
