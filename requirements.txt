@@ -4,5 +4,4 @@ python-dotenv
 PyNaCl
 dnspython
 requests
-random
 os
