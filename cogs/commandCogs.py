@@ -7,6 +7,13 @@ import normalFunctions
 from discord.ext import commands
 from replit import db
 
+url = 'mongodb+srv://dbAdminUser:owner127@cluster1.yf6y8.mongodb.net/geekDatabase?retryWrites=true&w=majority'
+myclient = pymongo.MongoClient(url)
+geekData = myclient["geekDatabase"]
+geekMemes = geekData["memes"]
+geekEncouragements = geekData["encouragements"]
+geekPuns = geekData["puns"]
+
 sad_words = ["sad", "depressed", "unhappy", "angry", "miserable", "sucks", "shitty", "shit"]
 starter_encouragements = [
   "Cheer up!",
@@ -66,15 +73,17 @@ class CommandsCog(commands.Cog):
 
   @commands.command()
   async def meme(self,ctx):
-    if "memes" in db.keys():
-      memes = db["memes"]
-      most = len(memes)
+    allMemes = geekMemes.find()
+    if len(allMemes) == 0:
+      await ctx.send("No memes are available right now")
+    else:
+      most = len(allMemes)
       randNum = random.randint(0, (most-1))
       meme = memes[randNum]
-      await ctx.send(meme)
-    else:
-      await ctx.send("No puns are available right now")
-
+      meme_dict = json.loads(meme)
+      meme_url = meme_dict["url"]
+      await ctx.send(meme_url)
+      
   @commands.command()
   async def makememe(self,ctx):
     def check(msg):
@@ -129,14 +138,16 @@ class CommandsCog(commands.Cog):
 
   @commands.command()
   async def pun(self, ctx):
-    if "puns" in db.keys():
-      puns = db["puns"]
-      most = len(puns)
+    allPuns = geekPuns.find()
+    if len(allPuns) == 0:
+      await ctx.send("No puns are available right now")
+    else:
+      most = len(allPuns)
       randNum = random.randint(0, (most-1))
       pun = puns[randNum]
-      await ctx.send(pun)
-    else:
-      await ctx.send("No puns are available right now")
+      pun_dict = json.loads(pun)
+      pun_text = meme_dict["text"]
+      await ctx.send(pun_text)
 
   @commands.command()
   async def commands(self, ctx):
