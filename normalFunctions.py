@@ -12,8 +12,7 @@ geekPuns = geekData["puns"]
 
 def update_encouragements(encouraging_message):
   message_dict = {'message': encouraging_message}
-  message_object = json.dumps(message_dict)
-  newMessage = geekEncouragements.insert_one(message_object)
+  newMessage = geekEncouragements.insert_one(message_dict)
   print("new message added.")
 
 def delete_encouragment(index):
@@ -49,8 +48,7 @@ def fill_mystery(message, word, mystery):
 
 def update_pun_list(new_pun):
   pun_dict = {'text': str(new_pun)}
-  pun_object = json.dumps(pun_dict)
-  newPun = geekPuns.insert_one(pun_object)
+  newPun = geekPuns.insert_one(pun_dict)
   print("new pun added.")
 
 def addMoves():
@@ -74,6 +72,5 @@ def getDailyWord():
 
 def update_meme_list(new_url):
   meme_dict = {'url': new_url}
-  meme_object = json.dumps(meme_dict)
-  newMeme = geekMemes.insert_one(meme_object)
+  newMeme = geekMemes.insert_one(meme_dict)
   print("new meme added.")
