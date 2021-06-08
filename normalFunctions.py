@@ -1,5 +1,6 @@
 import random
 import pymongo
+import json
 
 from replit import db
 url = 'mongodb+srv://dbAdminUser:owner127@cluster1.yf6y8.mongodb.net/geekDatabase?retryWrites=true&w=majority'
@@ -10,7 +11,9 @@ geekEncouragements = geekData["encouragements"]
 geekPuns = geekData["puns"]
 
 def update_encouragements(encouraging_message):
-  newMessage = geekEncouragements.insert_one(encouraging_message)
+  message_dict = {'message': encouraging_message}
+  message_object = json.dumps(message_dict)
+  newMessage = geekEncouragements.insert_one(message_object)
   print("new message added.")
 
 def delete_encouragment(index):
@@ -45,7 +48,9 @@ def fill_mystery(message, word, mystery):
   return mystery
 
 def update_pun_list(new_pun):
-  newPun = geekPuns.insert_one(new_pun)
+  pun_dict = {'text': str(new_pun)}
+  pun_object = json.dumps(pun_dict)
+  newPun = geekPuns.insert_one(pun_object)
   print("new pun added.")
 
 def addMoves():
@@ -68,5 +73,7 @@ def getDailyWord():
   return daily_word
 
 def update_meme_list(new_url):
-  newMeme = geekMemes.insert_one(new_url)
+  meme_dict = {'url': new_url}
+  meme_object = json.dumps(meme_dict)
+  newMeme = geekMemes.insert_one(meme_object)
   print("new meme added.")
