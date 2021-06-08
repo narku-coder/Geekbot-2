@@ -1,14 +1,17 @@
 import random
+import pymongo
 
 from replit import db
+url = 'mongodb+srv://dbAdminUser:owner127@cluster1.yf6y8.mongodb.net/geekDatabase?retryWrites=true&w=majority'
+myclient = pymongo.MongoClient(url)
+geekData = myclient["geekDatabase"]
+geekMemes = geekData["memes"]
+geekEncouragements = geekData["encouragements"]
+geekPuns = geekData["puns"]
 
 def update_encouragements(encouraging_message):
-  if "encouragements" in db.keys():
-    encouragements = db["encouragements"]
-    encouragements.append(encouraging_message)
-    db["encouragements"] = encouragements
-  else:
-    db["encouragements"] = [encouraging_message]
+  newMessage = geekEncouragements.insert_one(encouraging_message)
+  print("new message added.")
 
 def delete_encouragment(index):
   encouragements = db["encouragements"]
@@ -42,12 +45,8 @@ def fill_mystery(message, word, mystery):
   return mystery
 
 def update_pun_list(new_pun):
-  if "puns" in db.keys():
-    puns = db["puns"]
-    puns.append(new_pun)
-    db["puns"] = puns
-  else:
-    db["puns"] = [new_pun]
+  newPun = geekPuns.insert_one(new_pun)
+  print("new pun added.")
 
 def addMoves():
   moves = []
@@ -69,9 +68,5 @@ def getDailyWord():
   return daily_word
 
 def update_meme_list(new_url):
-  if "memes" in db.keys():
-    memes = db["memes"]
-    memes.append(new_url)
-    db["memes"] = memes
-  else:
-    db["memes"] = [new_url]
+  newMeme = geekMemes.insert_one(new_url)
+  print("new meme added.")
