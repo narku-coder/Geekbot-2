@@ -142,7 +142,7 @@ class CommandsCog(commands.Cog):
             await ctx.send(pun_text)
  
   @commands.command()
-  async def commands(self, ctx):
+  async def help(self, ctx):
     embed = discord.Embed(title="List of commands", description = "A list of available discord commands", color = discord.Colour.red())
     embed.add_field(name = "Inspirational quote", value = "!quote", inline = True)
     embed.add_field(name = "Post new encouraging message", value = "!new <your message>", inline = True)
