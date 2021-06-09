@@ -166,5 +166,5 @@ class CommandsCog(commands.Cog):
     normalFunctions.update_pun_list(message)
     await ctx.send("New pun added.")
 
- def setup(bot):
+def setup(bot):
   bot.add_cog(CommandsCog(bot))
