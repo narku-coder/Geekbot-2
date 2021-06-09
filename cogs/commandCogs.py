@@ -137,6 +137,7 @@ class CommandsCog(commands.Cog):
         countPun = 0
         for pun in geekPuns.find():
           countPun = countPun + 1
+          if countPun == randNum:
  
   @commands.command()
   async def commands(self, ctx):
