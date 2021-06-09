@@ -73,16 +73,15 @@ class CommandsCog(commands.Cog):
 
   @commands.command()
   async def meme(self,ctx):
-    allMemes = geekMemes.find()
-    if len(allMemes) == 0:
-      await ctx.send("No memes are available right now")
-    else:
-      most = len(allMemes)
-      randNum = random.randint(0, (most-1))
-      meme = memes[randNum]
-      meme_dict = json.loads(meme)
-      meme_url = meme_dict["url"]
-      await ctx.send(meme_url)
+    count = 0
+    for meme in geekMemes.find():
+       count = count + 1
+    randNum = random.randint(0, (count-1))
+    count = 0
+    for meme in geekMemes.find():
+       count = count + 1
+       if count == randNum:
+        meme_url = meme["url"]
       
   @commands.command()
   async def makememe(self,ctx):
@@ -138,15 +137,18 @@ class CommandsCog(commands.Cog):
 
   @commands.command()
   async def pun(self, ctx):
-    allPuns = geekPuns.find()
-    if len(allPuns) == 0:
+    countPun = 0
+    for pun in geekPuns.find():
+      count = count + 1
+    if count == 0:
       await ctx.send("No puns are available right now")
     else:
-      most = len(allPuns)
-      randNum = random.randint(0, (most-1))
-      pun = puns[randNum]
-      pun_dict = json.loads(pun)
-      pun_text = meme_dict["text"]
+      randNum = random.randint(0, (count-1))
+      count = 0
+      for pun in geekPuns.find():
+        count = count + 1
+        if count == randNum:
+          pun_text = pun["text"|
       await ctx.send(pun_text)
 
   @commands.command()
