@@ -5,9 +5,11 @@ import functions
 import normalFunctions
 import pymongo
 
+from dotenv import load_dotenv
 from keep_alive import keep_alive
 from discord.ext import commands, tasks
 
+load_dotenv()
 url = 'mongodb+srv://dbAdminUser:owner127@cluster1.yf6y8.mongodb.net/geekDatabase?retryWrites=true&w=majority'
 myclient = pymongo.MongoClient(url)
 geekData = myclient["geekDatabase"]
