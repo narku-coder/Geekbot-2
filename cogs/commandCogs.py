@@ -3,6 +3,7 @@ import requests
 import json
 import random
 import normalFunctions
+import pymongo
 
 from discord.ext import commands
 from replit import db
