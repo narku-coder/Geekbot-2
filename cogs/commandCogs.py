@@ -140,8 +140,8 @@ class CommandsCog(commands.Cog):
         if countPun == randNum:
           pun_text = pun["text"|
       await ctx.send(pun_text)
-											
-	@commands.command()
+                         
+  @commands.command()
   async def commands(self, ctx):
     await ctx.send("It got to commands")
     embed = discord.Embed(title="List of commands", description = "A list of available discord commands", color = discord.Colour.red())
