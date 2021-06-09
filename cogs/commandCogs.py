@@ -167,4 +167,4 @@ class CommandsCog(commands.Cog):
     await ctx.send("New pun added.")
 
 def setup(bot):
-  bot.add_cog(CommandsCog(bot))
+    bot.add_cog(CommandsCog(bot))
