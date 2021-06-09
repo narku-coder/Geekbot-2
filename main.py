@@ -3,21 +3,18 @@ import os
 import random
 import functions
 import normalFunctions
+import pymongo
 
-from replit import db
 from keep_alive import keep_alive
 from discord.ext import commands, tasks
 
-sad_words = ["sad", "depressed", "unhappy", "angry", "miserable", "sucks", "shitty", "shit"]
-starter_encouragements = [
-  "Cheer up!",
-  "Hang in there.",
-  "You are a great person / bot!",
-  "You are loved",
-  "You are number one",
-  "There is alway light at the end of the tunnel"
-]
+url = 'mongodb+srv://dbAdminUser:owner127@cluster1.yf6y8.mongodb.net/geekDatabase?retryWrites=true&w=majority'
+myclient = pymongo.MongoClient(url)
+geekData = myclient["geekDatabase"]
+geekMemes = geekData["memes"]
+geekEncouragements = geekData["encouragements"]
 
+sad_words = ["sad", "depressed", "unhappy", "angry", "miserable", "sucks", "shitty", "shit"]
 deleted_messages = []
 client = commands.Bot(command_prefix='!')
 canEarn = True
@@ -72,9 +69,9 @@ async def on_message(message):
     canEarn = False
     await message.channel.send("This event has ended.")
   
-  options = starter_encouragements
-  if "encouragements" in db.keys():
-    options = options + db["encouragements"]
+  options = []
+  for message in geekEncouragements.finds():
+    options.append(message['message'])
   if any(word in msg for word in sad_words):
     await message.channel.send(random.choice(options))
 
@@ -100,10 +97,6 @@ async def on_message(message):
     await functions.pet_level_up(members, user, message.channel)
     await functions.update_file(guild, members)
   msg = message.content
-
-  options = starter_encouragements
-  if "encouragements" in db.keys():
-    options = options + db["encouragements"]
   
 @client.event
 async def on_member_join(member):
