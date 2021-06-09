@@ -6,7 +6,6 @@ import normalFunctions
 import pymongo
 
 from discord.ext import commands
-from replit import db
 
 url = 'mongodb+srv://dbAdminUser:owner127@cluster1.yf6y8.mongodb.net/geekDatabase?retryWrites=true&w=majority'
 myclient = pymongo.MongoClient(url)
@@ -15,16 +14,6 @@ geekMemes = geekData["memes"]
 geekEncouragements = geekData["encouragements"]
 geekPuns = geekData["puns"]
 
-sad_words = ["sad", "depressed", "unhappy", "angry", "miserable", "sucks", "shitty", "shit"]
-starter_encouragements = [
-  "Cheer up!",
-  "Hang in there.",
-  "You are a great person / bot!",
-  "You are loved",
-  "You are number one",
-  "There is alway light at the end of the tunnel"
-]
-banned_words = ["anal", "anus", "ass", "ballsack", "bastard", "bitch", "bj", "blowjob", "boner", "buttplug", "clitoris", "cock", "penis", "boobs", "dildo", "dyke", "fag", "fuck", "jizz", "labia", "muff"]
 memes = []
 choices = []
 fileNum = 1
