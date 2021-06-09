@@ -2,7 +2,6 @@ import random
 import pymongo
 import json
 
-from replit import db
 url = 'mongodb+srv://dbAdminUser:owner127@cluster1.yf6y8.mongodb.net/geekDatabase?retryWrites=true&w=majority'
 myclient = pymongo.MongoClient(url)
 geekData = myclient["geekDatabase"]
@@ -14,12 +13,6 @@ def update_encouragements(encouraging_message):
   message_dict = {'message': encouraging_message}
   newMessage = geekEncouragements.insert_one(message_dict)
   print("new message added.")
-
-def delete_encouragment(index):
-  encouragements = db["encouragements"]
-  if len(encouragements) > index:
-    del encouragements[index]
-  db["encouragements"] = encouragements
 
 def verify(message, word):
   guess = message.content
