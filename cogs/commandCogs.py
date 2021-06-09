@@ -162,11 +162,11 @@ class CommandsCog(commands.Cog):
     embed.add_field(name = "View your current inventory", value = "!inventory", inline = True)
     await ctx.send(embed=embed)
 												 
-	#ignore this											 
-	@commands.command()
-	async def newpun(self, ctx,*,message):
-  	normalFunctions.update_pun_list(message)
-  	await ctx.send("New pun added.")
+#ignore this											 
+  @commands.command()
+  async def newpun(self, ctx,*,message):
+    normalFunctions.update_pun_list(message)
+    await ctx.send("New pun added.")
 
-	def setup(bot):
+  def setup(bot):
     bot.add_cog(CommandsCog(bot))
