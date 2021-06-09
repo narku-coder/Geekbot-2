@@ -133,7 +133,10 @@ class CommandsCog(commands.Cog):
     if countPun == 0:
         await ctx.send("No puns are available right now")
     else:
-                         
+        randNum = random.randint(0, (countPun-1))
+        countPun = 0
+        for pun in geekPuns.find():
+          
   @commands.command()
   async def commands(self, ctx):
     await ctx.send("It got to commands")
