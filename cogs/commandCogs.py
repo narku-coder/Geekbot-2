@@ -140,7 +140,7 @@ class CommandsCog(commands.Cog):
         if countPun == randNum:
           pun_text = pun["text"|
           await ctx.send(pun_text)
-                         
+
   @commands.command()
   async def commands(self, ctx):
     await ctx.send("It got to commands")
@@ -161,8 +161,8 @@ class CommandsCog(commands.Cog):
     embed.add_field(name = "Consume an item from your inventory", value = "!eat", inline = True)
     embed.add_field(name = "View your current inventory", value = "!inventory", inline = True)
     await ctx.send(embed=embed)
-												 
-#ignore this											 
+
+#ignore this
   @commands.command()
   async def newpun(self, ctx,*,message):
     normalFunctions.update_pun_list(message)
