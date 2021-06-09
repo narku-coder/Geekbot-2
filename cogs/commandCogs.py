@@ -140,8 +140,8 @@ class CommandsCog(commands.Cog):
         if countPun == randNum:
           pun_text = pun["text"|
       await ctx.send(pun_text)
-                         
-  @commands.command()
+											
+	@commands.command()
   async def commands(self, ctx):
     await ctx.send("It got to commands")
     embed = discord.Embed(title="List of commands", description = "A list of available discord commands", color = discord.Colour.red())
@@ -161,11 +161,11 @@ class CommandsCog(commands.Cog):
     embed.add_field(name = "Consume an item from your inventory", value = "!eat", inline = True)
     embed.add_field(name = "View your current inventory", value = "!inventory", inline = True)
     await ctx.send(embed=embed)
+												 
+	@commands.command()
+	async def newpun(self, ctx,*,message):
+  	normalFunctions.update_pun_list(message)
+  	await ctx.send("New pun added.")
 
-@commands.command()
-async def newpun(self, ctx,*,message):
-  normalFunctions.update_pun_list(message)
-  await ctx.send("New pun added.")
-
-def setup(bot):
+	def setup(bot):
     bot.add_cog(CommandsCog(bot))
