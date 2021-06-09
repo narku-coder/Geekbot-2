@@ -136,7 +136,11 @@ class CommandsCog(commands.Cog):
         randNum = random.randint(0, (countPun-1))
         countPun = 0
         for pun in geekPuns.find():
-          
+          countPun = countPun + 1
+          if countPun == randNum:
+            pun_text = pun["text"|
+            await ctx.send(pun_text) 
+ 
   @commands.command()
   async def commands(self, ctx):
     await ctx.send("It got to commands")
