@@ -27,6 +27,7 @@ def generate_coin_word():
   randNum = random.randint(0, (len(animals)-1))
   coin_word = animals[randNum]
   return coin_word
+
 @client.command()
 async def load(ctx, extension):
   client.load_extension(f'cogs.{extension}')
