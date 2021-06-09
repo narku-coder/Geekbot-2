@@ -19,7 +19,7 @@ choices = []
 fileNum = 1
 class CommandsCog(commands.Cog):
   def __init__(self, bot):
-        self.bot = bot
+    self.bot = bot
 
   @commands.Cog.listener()
   async def on_ready(self):
@@ -162,7 +162,6 @@ class CommandsCog(commands.Cog):
     embed.add_field(name = "View your current inventory", value = "!inventory", inline = True)
     await ctx.send(embed=embed)
 
-#ignore this
   @commands.command()
   async def newpun(self, ctx,*,message):
     normalFunctions.update_pun_list(message)
