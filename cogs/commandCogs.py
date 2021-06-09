@@ -126,20 +126,20 @@ class CommandsCog(commands.Cog):
     await ctx.send("New pun added.") 
 
   @commands.command()
-  async def pun(self, ctx):
+async def pun(self, ctx):
     countPun = 0
     for pun in geekPuns.find():
-      countPun = countPun + 1
-    if countPun == 0:
-      await ctx.send("No puns are available right now")
-    else:
-      randNum = random.randint(0, (countPun-1))
-      countPun = 0
-      for pun in geekPuns.find():
         countPun = countPun + 1
-        if countPun == randNum:
-          pun_text = pun["text"|
-          await ctx.send(pun_text)
+    if countPun == 0:
+        await ctx.send("No puns are available right now")
+    else:
+        randNum = random.randint(0, (countPun-1))
+        countPun = 0
+        for pun in geekPuns.find():
+            countPun = countPun + 1
+            if countPun == randNum:
+                pun_text = pun["text"|
+                await ctx.send(pun_text)
                          
   @commands.command()
   async def commands(self, ctx):
