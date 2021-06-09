@@ -139,7 +139,7 @@ class CommandsCog(commands.Cog):
         countPun = countPun + 1
         if countPun == randNum:
           pun_text = pun["text"|
-      await ctx.send(pun_text)
+          await ctx.send(pun_text)
                          
   @commands.command()
   async def commands(self, ctx):
