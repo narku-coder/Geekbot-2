@@ -126,7 +126,7 @@ class CommandsCog(commands.Cog):
     await ctx.send("New pun added.") 
 
   @commands.command()
-async def pun(self, ctx):
+  async def pun(self, ctx):
     countPun = 0
     for pun in geekPuns.find():
         countPun = countPun + 1
