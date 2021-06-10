@@ -66,4 +66,3 @@ def getDailyWord():
 def update_meme_list(new_url):
   meme_dict = {'url': new_url}
   newMeme = geekMemes.insert_one(meme_dict)
-  print("new meme added.")
