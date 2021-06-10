@@ -193,7 +193,7 @@ async def update_db(users, pets):
      for pet in pets:
        pet_query = {'name': pet['name']}
        pet_dict = {"$set" : {'name': pet['name'], 'species': pet['level'], 'moves': pet['moves'],
-                 'level': pet['level'], 'health': pet['health']}}
+                 'level': pet['level'], 'health': pet['health'], 'xp': pet['xp']}}
        curPet = geekPets.update_one(pet_query, pet_dict)
 
 async def update_db_items(items):
