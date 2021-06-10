@@ -6,3 +6,4 @@ dnspython
 requests
 replit
 pymongo
+gunicorn
