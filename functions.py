@@ -248,7 +248,7 @@ async def add_item(items, user, item):
    for emp in items:
      if emp['user_id'] == user.id:
        if emp['name]' == item:
-         emp['amount'] += 1
+         emp['amount'] = emp['amount'] + 1
          found = True
    if not found:
      items.append({'user_id': user.id, 'name': item, 'num': 1})
