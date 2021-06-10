@@ -9,6 +9,7 @@ geekMemes = geekData["memes"]
 geekMembers = geekData["members"]
 geekPets = geekData["pets"]
 geekInventory = geekData["inventory"]
+geekBoosts = geekData["boosts"]
 
 async def update_data(users, user):
     contains = False
@@ -18,22 +19,23 @@ async def update_data(users, user):
     if contains == False:
         y = {'user_id':user.id, 'xp':0, 'level':1,
 	'coin':0, 'offensive_message_count':0, 'petNum': 0}
-        users.append(y)
+        new_user = geekMembers.insert_one(y)
+	      boost_dict = {'user_id': user.id, 'double_xp': False, 'double_xp_timer': 0,
+                  'double_coins': False, 'double_coins_timer': 0, 'triple_xp': False,
+                  'triple_xp_timer': 0}
+    	 new_boost = geekBoosts.insert_one(boost_dict)
 
-async def add_experience(users, user, exp):
+async def add_experience(users, user, exp, boosts):
+   doubleXp = await active_double_xp(boosts, user)
+   tripleXp = await active_triple_xp(boosts, user)
    for emp in users:
        if emp['user_id'] == user.id:
-           emp['xp'] += exp 
- 
-  #doubleXp = await active_double_xp(users, user)
-  #tripleXp = await active_triple_xp(users, user)
-  #for emp in users:
-    #if emp['user_id'] == user.id:
-      #if tripleXp:
-        #emp['xp'] += (3*exp)
-      #elif doubleXp:
-	      #emp['xp'] += (2*exp)
-       #emp['xp'] += exp
+           if tripleXp:
+             emp['xp'] += (3*exp)
+           elif doubleXp:
+	           emp['xp'] += (2*exp)
+	         else:
+       	     emp['xp'] += exp 
        
 async def level_up(users, user, channel):
     for emp in users:
@@ -93,8 +95,8 @@ async def add_pet(users, user, name, kind, pets):
      if emp2['user_id'] == user.id:
        emp2['petNum'] += 1
   
-async def add_coins(users, user, amount):
-   doubleCoins = await active_double_coins(users, user)
+async def add_coins(users, user, amount, boosts):
+   doubleCoins = await active_double_coins(boosts, user)
    for emp in users:
      if emp['user_id'] == user.id:
        if doubleCoins:
@@ -268,10 +270,9 @@ async def get_inventory(items, user):
          usable_items.append(thing)
    return has_items, usable_items
 
-async def activate_boost(users, user, num):
-   for emp in users:
+async def activate_boost(boosts, user, num):
+   for emp in boosts:
      if emp['user_id'] == user.id:
-       print("boosts - " + str(emp['boosts']))
        if int(num) == 0:
          emp['boosts'][0]['doubleXp'] = True
          emp['boosts'][0]['cooldown'] = 14400
@@ -282,28 +283,25 @@ async def activate_boost(users, user, num):
          emp['boosts'][2]['tripleXp'] = True
          emp['boosts'][2]['cooldown'] = 14400
 
-async def active_double_coins(users, user):
+async def active_double_coins(boosts, user):
    is_active = False
-   for emp in users:
+   for emp in boosts:
      if emp['user_id'] == user.id:
-       if 'boosts' in emp:
-         is_active = emp['boosts'][1]['doubleCoins']
+         is_active = emp['double_coins']
    return is_active
 
-async def active_double_xp(users, user):
+async def active_double_xp(boosts, user):
    is_active = False
-   for emp in users:
+   for emp in boosts:
      if emp['user_id'] == user.id:
-       if 'boosts' in emp:
-         is_active = emp['boosts'][0]['doubleXp']     
+        is_active = emp['double_xp']     
    return is_active
 
-async def active_triple_xp(users, user):
+async def active_triple_xp(boosts, user):
    is_active = False
-   for emp in users:
+   for emp in boosts:
      if emp['user_id'] == user.id:
-       if 'boosts' in emp:
-         is_active = emp['boosts'][2]['tripleXp']
+         is_active = emp['triple_xp']
    return is_active
 
 async def decrease_item_count(users, user, item):
