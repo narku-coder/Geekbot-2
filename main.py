@@ -61,7 +61,7 @@ async def on_message(message):
   user = message.author
   msg = message.content
   await client.process_commands(message)
-  pets = await functions.get_pets_data()
+  pets = await functions.get_pet_data()
   
   if str(coin_word[0]) in message.content and canEarn:
     await message.channel.send("Congratulations " + message.author.mention + ". You have earned 100 coins for being the first person to type a message containing " + str(coin_word) + ".")
