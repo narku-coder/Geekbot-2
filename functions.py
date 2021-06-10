@@ -11,11 +11,11 @@ async def update_data(users, user):
   contains = False
   for emp in users:
     if emp['user_id'] == user.id:
-		  contains = True
+	    contains = True
   if contains == False
     y = {'user_id':user.id, 'xp':0, 'level':1,
-		'coin':0, 'offensive_message_count':0, 'petNum': 0}
-	  users.append(y)
+	'coin':0, 'offensive_message_count':0, 'petNum': 0}
+    users.append(y)
 
 async def add_experience(users, user, exp):
   #doubleXp = await active_double_xp(users, user)
