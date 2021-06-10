@@ -63,6 +63,7 @@ async def on_message(message):
   chan = message.channel
   await client.process_commands(message)
   pets = await functions.get_pet_data()
+  boosts = await functions.get_boosts_data()
   
   if str(coin_word[0]) in message.content and canEarn:
     await message.channel.send("Congratulations " + message.author.mention + ". You have earned 100 coins for being the first person to type a message containing " + str(coin_word) + ".")
@@ -81,23 +82,23 @@ async def on_message(message):
 
   members = await functions.get_user_data(guild)
   await functions.update_data(members, user)
-  await functions.update_db(members, pets)
+  await functions.update_db(members, pets, boosts)
   members = await functions.get_user_data(guild)
-  await functions.add_experience(members, user, 10)
-  await functions.update_db(members, pets)
+  await functions.add_experience(members, user, 10, boosts)
+  await functions.update_db(members, pets, boosts)
   members = await functions.get_user_data(guild)
-  await functions.add_coins(members, user, 10)
-  await functions.update_db(members, pets)
+  await functions.add_coins(members, user, 10, boosts)
+  await functions.update_db(members, pets, boosts)
   members = await functions.get_user_data(guild)
   await functions.level_up(members, user, chan)
-  await functions.update_db(members, pets)
+  await functions.update_db(members, pets, boosts)
   members = await functions.get_user_data(guild)
   petNum = await functions.get_pet_num(members, user)
   if petNum > 0:
     await functions.add_pet_exp(pets, user, 25)
-    await functions.update_db(members, pets)
+    await functions.update_db(members, pets, boosts)
     await functions.pet_level_up(pets, chan)
-    await functions.update_db(members, pets)
+    await functions.update_db(members, pets, boosts)
   
 @client.event
 async def on_member_join(member):
@@ -110,8 +111,9 @@ async def on_member_join(member):
     await member.send("Welcome to the " + str(guild) + ". The best server in Discord.")
   members = await functions.get_user_data(guild)
   pets = await functions.get_pet_data()
+  boosts = await functions.get_boosts_data()
   await functions.update_data(members, member)
-  await functions.update_db(members, pets)
+  await functions.update_db(members, pets, boosts)
 
 @tasks.loop(hours=2)
 async def interest_gainer():
@@ -121,8 +123,9 @@ async def interest_gainer():
       guild = guilds[num]
       pets = await functions.get_pet_data()
       members = await functions.get_user_data(guild)
+      boosts = await functions.get_boosts_data()
       await functions.add_interest(members)
-      await functions.update_db(members, pets)
+      await functions.update_db(members, pets, boosts)
       num = num + 1
 
 @tasks.loop(minutes=1)
@@ -133,8 +136,9 @@ async def lower_cooldown():
     guild = guilds[num]
     members = await functions.get_user_data(guild)
     pets = await functions.get_pet_data()
-    await functions.reset_cooldown(members)
-    await functions.update_db(members, pets)
+    boosts = await functions.get_boosts_data()
+    await functions.reset_cooldown(boosts)
+    await functions.update_db(members, pets, boosts)
     num = num + 1
 
 def addMemesToDB():
