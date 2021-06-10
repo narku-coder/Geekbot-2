@@ -81,7 +81,7 @@ async def can_buy(users, user, amount):
 
 async def add_pet(users, user, name, kind):
   for emp in users:
-    if emp['user id'] == user.id:
+    if emp['user_id'] == user.id:
       emp['pets'].append({"name": name, "type": kind, "xp": 0, "moves": [], "level": 0, "health": 100})
       emp['petNum'] += 1
   
@@ -121,14 +121,14 @@ async def pet_level_up(pets, channel):
 async def view_balance(users, user, ctx):
   balance = 0
   for emp in users:
-    if emp['user id'] == user.id:
+    if emp['user_id'] == user.id:
 	    balance = emp['coin']
   await ctx.send(user.mention + " currently has " + str(balance) + " coins")
 
 async def get_pets(pets, user):
   geekPets = []
   for emp in pets:
-    if emp['user id'] == user.id:
+    if emp['user_id'] == user.id:
       geekPets.append(emp)
   return geekPets
 
@@ -145,8 +145,8 @@ async def get_profile_info(users, user):
 
 async def get_pet_num(users, user):
   num = 0
-  for emp in users['users']:
-    if emp['user id'] == user.id:
+  for emp in users:
+    if emp['user_id'] == user.id:
       num = emp['petNum']
   return num
 
@@ -168,10 +168,7 @@ async def get_pet_data():
   return pets
 
 async def update_file(guild, users):
-  if str(guild) == "Geek Culture Club":
-    with open('geeks.json', 'w') as f:
-      json.dump(users, f)
-  elif str(guild) == "Narku Vesuba's Bot server":
+  if str(guild) == "Narku Vesuba's Bot server":
     with open('users.json', 'w') as f:
       json.dump(users, f)
       
@@ -200,23 +197,23 @@ async def has_account(users, user):
 
 async def add_account(users, user, amount):
   for emp in users:
-    if emp['user id'] == user.id:
+    if emp['user_id'] == user.id:
       emp.update({'bank':amount})
 
 async def deposit_coins(users, user, amount):
   for emp in users:
-    if emp['user id'] == user.id:
+    if emp['user_id'] == user.id:
       emp['bank'] += amount
 
 async def withdraw_coins(users, user, amount):
   for emp in users:
-    if emp['user id'] == user.id:
+    if emp['user_id'] == user.id:
       emp['bank'] -= amount
 
 async def can_withdraw(users, user, amount):
   is_possible = False
   for emp in users:
-    if emp['user id'] == user.id:
+    if emp['user_id'] == user.id:
       if emp['bank'] >= amount:
         is_possible = True
   return is_possible
@@ -224,7 +221,7 @@ async def can_withdraw(users, user, amount):
 async def get_account_balance(users, user):
   balance = 0
   for emp in users:
-    if emp['user id'] == user.id:
+    if emp['user_id'] == user.id:
       balance = emp['bank']
   return balance
 
@@ -254,7 +251,7 @@ async def get_inventory(users, user):
   items = []
   usable_items = []
   for emp in users:
-    if emp['user id'] == user.id:
+    if emp['user_id'] == user.id:
       if 'inventory' in emp:
         has_items = True
         items = emp['inventory']
@@ -266,7 +263,7 @@ async def get_inventory(users, user):
 
 async def activate_boost(users, user, num):
   for emp in users:
-    if emp['user id'] == user.id:
+    if emp['user_id'] == user.id:
       print("boosts - " + str(emp['boosts']))
       if int(num) == 0:
         emp['boosts'][0]['doubleXp'] = True
@@ -281,7 +278,7 @@ async def activate_boost(users, user, num):
 async def active_double_coins(users, user):
   is_active = False
   for emp in users:
-    if emp['user id'] == user.id:
+    if emp['user_id'] == user.id:
       if 'boosts' in emp:
         is_active = emp['boosts'][1]['doubleCoins']
   return is_active
@@ -289,7 +286,7 @@ async def active_double_coins(users, user):
 async def active_double_xp(users, user):
   is_active = False
   for emp in users:
-    if emp['user id'] == user.id:
+    if emp['user_id'] == user.id:
       if 'boosts' in emp:
         is_active = emp['boosts'][0]['doubleXp']     
   return is_active
@@ -297,7 +294,7 @@ async def active_double_xp(users, user):
 async def active_triple_xp(users, user):
   is_active = False
   for emp in users:
-    if emp['user id'] == user.id:
+    if emp['user_id'] == user.id:
       if 'boosts' in emp:
         is_active = emp['boosts'][2]['tripleXp']
   return is_active
