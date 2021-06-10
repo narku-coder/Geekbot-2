@@ -101,7 +101,6 @@ async def on_message(message):
     members = await functions.get_user_data(guild)
     await functions.pet_level_up(pets, chan)
     await functions.update_db(members, pets)
-  msg = message.content
   
 @client.event
 async def on_member_join(member):
