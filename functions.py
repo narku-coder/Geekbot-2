@@ -10,19 +10,19 @@ geekMemes = geekData["members"]
 async def update_data(users, user):
   contains = False
   for emp in users:
-	  if emp['user id'] == user.id:
+	  if emp['user_id'] == user.id:
 		  contains = True
 
   if contains == False:
-	  y = {'user id':user.id, 'xp':0, 'level':1,
+	  y = {'user_id':user.id, 'xp':0, 'level':1,
 		'coin':0, 'offensive_message_count':0, 'petNum': 0}
-	  users['users'].append(y)
+	  users.append(y)
 
 async def add_experience(users, user, exp):
   #doubleXp = await active_double_xp(users, user)
   #tripleXp = await active_triple_xp(users, user)
   for emp in users:
-    if emp['user id'] == user.id:
+    if emp['user_id'] == user.id:
       #if tripleXp:
         #emp['xp'] += (3*exp)
       #elif doubleXp:
@@ -31,7 +31,7 @@ async def add_experience(users, user, exp):
 
 async def level_up(users, user, channel):
   for emp in users:
-    if emp['user id'] == user.id:
+    if emp['user_id'] == user.id:
       experience = emp['xp']
       level = emp['level']
       if experience > (level*100):
@@ -41,7 +41,7 @@ async def level_up(users, user, channel):
 
 async def increase_count(users, user):
   for emp in users:
-    if emp['user id'] == user.id:
+    if emp['user_id'] == user.id:
 	    emp['offensive_message_count'] += 1
     if emp['offensive_message_count'] > 5:
       await user.send("You have been kicked because you went past the tolerable limit for offensive messages.")
