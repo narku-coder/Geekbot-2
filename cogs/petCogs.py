@@ -226,11 +226,13 @@ class petCog(commands.Cog):
      guild = ctx.guild
      users = await functions.get_user_data(guild)
      member = ctx.author
+     pets = await functions.get_pet_data()
      petNum = await functions.get_pet_num(users, member)
      if petNum == 0:
        await ctx.send("You currently own no pets")
      else:
        user_pets = await functions.get_pets(pets, member)
+       print("It obtained the list of pets")
        user_pets_display = []
        num = 0
        while num < len(user_pets):
