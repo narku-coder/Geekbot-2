@@ -98,7 +98,7 @@ async def on_message(message):
     await functions.update_db(members, pets)
     members = await functions.get_user_data(guild)
     await functions.pet_level_up(members, user, message.channel)
-    aawait functions.update_db(members, pets)
+    await functions.update_db(members, pets)
   msg = message.content
   
 @client.event
