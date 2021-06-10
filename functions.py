@@ -237,8 +237,7 @@ async def get_account_balance(users, user):
 async def add_interest(users):
   for emp in users:
     if 'bank' in emp:
-      emp['bank'] += .05*emp['bank']
-
+      
 async def add_item(items, user, item):
   found = False
   for emp in items:
@@ -247,7 +246,8 @@ async def add_item(items, user, item):
         emp['amount'] += 1
         found = True
    if not found:
-
+       items.append({'user_id': user.id, 'name': item, 'num': 1})
+             
 async def get_inventory(items, user):
   has_items = False
   items = []
