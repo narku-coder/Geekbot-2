@@ -195,7 +195,7 @@ async def update_db_items(items)
     item_query = {'user_id': item['user_id']}
     item_dict = {"$set": {'name': item['name'], 'amount': item['amount']}}
     curItem = geekInventory.update_one(item_query, item_dict)
-
+    
 async def has_account(users, user):
   has_bank = False
   for emp in users:
