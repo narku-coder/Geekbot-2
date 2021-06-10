@@ -222,40 +222,41 @@ class petCog(commands.Cog):
 
   @commands.command()
   async def petinfo(self, ctx):
-    guild = ctx.guild
-    users = await functions.get_user_data(guild)
-    member = ctx.author
-    petNum = await functions.get_pet_num(users, member)
-    if petNum == 0:
-      await ctx.send("You currently own no pets")
-    else:
-      user_pets = await functions.get_pets(pets, member)
-      user_pets_display = []
-      num = 0
-      while num < len(user_pets):
-        line = str(num+1) + " - " + user_pets[num]["name"]
-        user_pets_display.append(line)
-        num = num + 1
-        await ctx.send("choose a pet to view its profile: " + str(user_pets_display))
-        def checkTwo(msg):
-          return msg.author == ctx.author and msg.content.isnumeric()
-        msg = await self.bot.wait_for("message", check = checkTwo)
-        choice = int(msg.content)
-        if choice > len(user_pets):
-          await ctx.send("Your choice is invalid try again")
-        else:
-          currPet = user_pets[(choice-1)]
-          petHealth = currPet['health']
-          petLevel = currPet['level']
-          petName = currPet['name']
-          petMoves = currPet['moves']
-          embed = discord.Embed(title="Current Pet Profile", description = "The profile of your selected pet", color = discord.Colour.gold())
-          embed.add_field(name = "Pet's name: ", value = petName, inline = True)
-          embed.add_field(name = "Pet's level: ", value = str(petLevel), inline = True)
-          embed.add_field(name = "Pet's health: ", value = str(petHealth), inline = True)
-          embed.add_field(name = "Pet's move set: ", value = str(petMoves), inline = True)
-          embed.set_footer(text = petName + "'s profile'")
-          await ctx.send(embed=embed)
+     print("It got to the petinfo function.")
+     guild = ctx.guild
+     users = await functions.get_user_data(guild)
+     member = ctx.author
+     petNum = await functions.get_pet_num(users, member)
+     if petNum == 0:
+       await ctx.send("You currently own no pets")
+     else:
+       user_pets = await functions.get_pets(pets, member)
+       user_pets_display = []
+       num = 0
+       while num < len(user_pets):
+         line = str(num+1) + " - " + user_pets[num]["name"]
+         user_pets_display.append(line)
+         num = num + 1
+         await ctx.send("choose a pet to view its profile: " + str(user_pets_display))
+         def checkTwo(msg):
+           return msg.author == ctx.author and msg.content.isnumeric()
+         msg = await self.bot.wait_for("message", check = checkTwo)
+         choice = int(msg.content)
+         if choice > len(user_pets):
+           await ctx.send("Your choice is invalid try again")
+         else:
+           currPet = user_pets[(choice-1)]
+           petHealth = currPet['health']
+           petLevel = currPet['level']
+           petName = currPet['name']
+           petMoves = currPet['moves']
+           embed = discord.Embed(title="Current Pet Profile", description = "The profile of your selected pet", color = discord.Colour.gold())
+           embed.add_field(name = "Pet's name: ", value = petName, inline = True)
+           embed.add_field(name = "Pet's level: ", value = str(petLevel), inline = True)
+           embed.add_field(name = "Pet's health: ", value = str(petHealth), inline = True)
+           embed.add_field(name = "Pet's move set: ", value = str(petMoves), inline = True)
+           embed.set_footer(text = petName + "'s profile'")
+           await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(petCog(bot))
