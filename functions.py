@@ -111,7 +111,6 @@ async def add_pet_exp(pets, user, amount):
    for emp in pets:
      if emp['user_id'] == user.id:
        emp['xp'] += amount
-       print("your pet just gained " + str(amount) + " xp.")
 
 async def pet_level_up(pets, channel):
    moves = normalFunctions.addMoves()
@@ -195,7 +194,6 @@ async def update_db(users, pets):
      pet_dict = {"$set" : {'name': pet['name'], 'species': pet['species'], 'moves': pet['moves'],
                  'level': pet['level'], 'health': pet['health'], 'xp': pet['xp']}}
      curPet = geekPets.update_one(pet_query, pet_dict)
-     print("pet info is updated.")
 
 async def update_db_items(items):
    for item in items:
