@@ -112,8 +112,9 @@ class gameCog(commands.Cog):
       await ctx.send("Congratulations, you got it correct. You just earned 100 coins.", tts = False)
       members = await functions.get_user_data(guild)
       pets = await functions.get_pet_data()
-      await functions.add_coins(members, member, 100)
-      await functions.update_db(members, pets)
+      boosts = await functions.get_boosts_data()
+      await functions.add_coins(members, member, 100, boosts)
+      await functions.update_db(members, pets, boosts)
     else:
       await ctx.send("You got it wrong. Try again next time")
 
@@ -168,8 +169,9 @@ class gameCog(commands.Cog):
       await ctx.send("Great job guessing the mystery word " + random_word + ". You just earned 25 coins.")
       members = await functions.get_user_data(guild)
       pets = await functions.get_pet_data()
-      await functions.add_coins(members, member, 25)
-      await functions.update_db(members, pets)
+      boosts = await functions.get_boosts_data()
+      await functions.add_coins(members, member, 25, boosts)
+      await functions.update_db(members, pets, boosts)
     if attempts == 6:
       await ctx.send("Nice Try. You will get it next time. The mystery word was " + str(random_word))
 
@@ -200,8 +202,9 @@ class gameCog(commands.Cog):
       await ctx.send("Great job guessing the mystery number " + randNum + ". You just earned 60 coins.")
       pets = await functions.get_pet_data()
       members = await functions.get_user_data(guild)
-      await functions.add_coins(members, member, 60)
-      await functions.update_db(members, pets)
+      boosts = await functions.get_boosts_data()
+      await functions.add_coins(members, member, 60, boosts)
+      await functions.update_db(members, pets, boosts)
     if attempts == 3:
       await ctx.send("Nice Try. You will get it next time. The mysterious number was " + str(randNum))
 
