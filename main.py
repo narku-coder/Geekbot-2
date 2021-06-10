@@ -74,7 +74,7 @@ async def on_message(message):
     await message.channel.send("This event has ended.")
   
   options = []
-  for message in geekEncouragements.finds():
+  for message in geekEncouragements.find():
     options.append(message['message'])
   if any(word in msg for word in sad_words):
     await message.channel.send(random.choice(options))
