@@ -99,7 +99,7 @@ async def on_message(message):
     await functions.add_pet_exp(pets, user, 25)
     await functions.update_db(members, pets)
     members = await functions.get_user_data(guild)
-    await functions.pet_level_up(members, user, chan)
+    await functions.pet_level_up(pets, chan)
     await functions.update_db(members, pets)
   msg = message.content
   
