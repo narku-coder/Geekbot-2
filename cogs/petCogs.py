@@ -36,6 +36,7 @@ class petCog(commands.Cog):
   async def buy(self, ctx, *, arg):
     guild = ctx.guild
     users = await functions.get_user_data(guild)
+    pets = await functions.get_pet_data()
     member = ctx.author
     pets = fillPetsList()
     items = fillItemsList()
@@ -59,7 +60,7 @@ class petCog(commands.Cog):
       if(canBuy):
         await functions.subtract_coins(users, member, 1000)
         print("after 1000 subtract coin")
-        await functions.update_file(guild, users)
+        await functions.update_db(members, pets)
         await ctx.send("Choose one from the available options." + str(pet_display) + " Type the number for the pet you want to own.")
         def check(msg):
           return msg.author == ctx.author and msg.content.isnumeric()
@@ -75,8 +76,8 @@ class petCog(commands.Cog):
           msg = await self.bot.wait_for("message", check = checkTwo)
           name = msg.content
           users = await functions.get_user_data(guild)
-          await functions.add_pet(users, member, name, kind)
-          await functions.update_file(guild, users)
+          await functions.add_pet(users, member, name, kind, pets)
+          await functions.update_db(members, pets)
           await ctx.send("Congratulations on your new pet " + name + " the " + kind + ". I wish y'all lots of fun and happy time together")
     elif arg == "item":
       await ctx.send(str(item_display) + " Type the number for the item you want to buy.")
@@ -95,12 +96,12 @@ class petCog(commands.Cog):
         if canBuy:
           await functions.subtract_coins(users, member, int(itemPrice))
           print("after item price subtract coin")
-          await functions.update_file(guild, users)
+          await functions.update_db(members, pets)
           users = await functions.get_user_data(guild)
           print("before add item")
           await functions.add_item(users, member, itemName)
           print("after add item")
-          await functions.update_file(guild, users)
+          await functions.update_db(members, pets)
           await ctx.send(itemName + " has been added to your inventory")
         else:
           await ctx.send("You don't have enough coins to purchase a " + itemName)
@@ -227,7 +228,7 @@ class petCog(commands.Cog):
     if petNum == 0:
       await ctx.send("You currently own no pets")
     else:
-      user_pets = await functions.get_pets(users, member)
+      user_pets = await functions.get_pets(pets, member)
       user_pets_display = []
       num = 0
       while num < len(user_pets):
