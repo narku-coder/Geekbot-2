@@ -61,6 +61,7 @@ async def on_message(message):
   guild = message.guild
   user = message.author
   msg = message.content
+  chan = message.channel
   await client.process_commands(message)
   pets = await functions.get_pet_data()
   
@@ -89,7 +90,7 @@ async def on_message(message):
   await functions.add_coins(members, user, 10)
   await functions.update_db(members, pets)
   members = await functions.get_user_data(guild)
-  await functions.level_up(members, user, message.channel)
+  await functions.level_up(members, user, chan)
   await functions.update_db(members, pets)
   members = await functions.get_user_data(guild)
   petNum = await functions.get_pet_num(members, user)
@@ -98,7 +99,7 @@ async def on_message(message):
     await functions.add_pet_exp(pets, user, 25)
     await functions.update_db(members, pets)
     members = await functions.get_user_data(guild)
-    await functions.pet_level_up(members, user, message.channel)
+    await functions.pet_level_up(members, user, chan)
     await functions.update_db(members, pets)
   msg = message.content
   
