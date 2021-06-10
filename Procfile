@@ -1,2 +1,2 @@
 worker: python main.py
-web: python -m SimpleHTTPServer
+web: python keep_alive.py
