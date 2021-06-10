@@ -148,7 +148,6 @@ def addMemesToDB():
     normalFunctions.update_meme_list(memes[num]["url"])
     num = num + 1
 
-keep_alive()
 addMemesToDB()
 addMemesToDB()
 interest_gainer.start()
