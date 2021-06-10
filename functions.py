@@ -183,11 +183,12 @@ async def get_item_data():
 async def update_db(users, pets):
    for user in users:
      user_query = {'user_id': user['user_id']}
-     user_dict = {"$set" : {'xp': user['xp'], 'level': user['level'], 'coin': user['coin'],
-                 'petNum': user['petNum']}}
+     user_dict = {'xp': user['xp'], 'level': user['level'], 'coin': user['coin'],
+                 'petNum': user['petNum']}
      if 'bank' in user:
        user_dict['bank'] = user['bank']
-     curMember = geekMembers.update_one(user_query, user_dict)
+     user_updated = {"$set": user_dict}
+     curMember = geekMembers.update_one(user_query, user_updated)
    if user['petNum'] > 0:
      for pet in pets:
        pet_query = {'name': pet['name']}
