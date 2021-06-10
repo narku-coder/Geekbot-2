@@ -44,9 +44,8 @@ class CommandsCog(commands.Cog):
     querystring = {"size":"med","order":"random","limit":"1","page":"1","format":"json"}
     headers = {'x-api-key': 'b277d266-6a25-4239-a8c8-df0cde01ad82'}
     response = requests.request("GET", url, headers=headers, params=querystring)
-    y = response.text.split(':')[17]
-    size = len(y)
-    url2 = "https:"+ y[:(size-9)]
+    jsonResponse = response.json()
+    url2 = jsonResponse[0]['url']
     await ctx.send(url2)
 
   @commands.command()
@@ -71,7 +70,8 @@ class CommandsCog(commands.Cog):
     for meme in geekMemes.find():
        count = count + 1
        if count == randNum:
-        meme_url = meme["url"]
+        meme_url = meme['url']
+        await ctx.send(meme_url)
       
   @commands.command()
   async def makememe(self,ctx):
