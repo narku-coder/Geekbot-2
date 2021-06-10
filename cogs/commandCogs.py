@@ -123,7 +123,7 @@ class CommandsCog(commands.Cog):
     print("meme_url: " + str(meme_url))
     await ctx.send("Your user created meme: \n\n" + meme_url)
     normalFunctions.update_meme_list(meme_url)
-    await ctx.send("New pun added.") 
+    await ctx.send("New meme added.") 
 
   @commands.command()
   async def pun(self, ctx):
