@@ -234,9 +234,6 @@ async def get_account_balance(users, user):
       balance = emp['bank']
   return balance
 
-async def add_interest(users):
-  for emp in users:
-      
 async def add_item(items, user, item):
   found = False
   for emp in items:
