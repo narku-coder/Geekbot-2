@@ -23,7 +23,7 @@ async def update_data(users, user):
 	      boost_dict = {'user_id': user.id, 'double_xp': False, 'double_xp_timer': 0,
                   'double_coins': False, 'double_coins_timer': 0, 'triple_xp': False,
                   'triple_xp_timer': 0}
-    	 new_boost = geekBoosts.insert_one(boost_dict)
+    	  new_boost = geekBoosts.insert_one(boost_dict)
 
 async def add_experience(users, user, exp, boosts):
    doubleXp = await active_double_xp(boosts, user)
@@ -31,11 +31,11 @@ async def add_experience(users, user, exp, boosts):
    for emp in users:
        if emp['user_id'] == user.id:
            if tripleXp:
-             emp['xp'] += (3*exp)
+            emp['xp'] += (3*exp)
            elif doubleXp:
-	           emp['xp'] += (2*exp)
-	         else:
-       	     emp['xp'] += exp 
+             emp['xp'] += (2*exp)
+           else:
+             emp['xp'] += exp 
        
 async def level_up(users, user, channel):
     for emp in users:
