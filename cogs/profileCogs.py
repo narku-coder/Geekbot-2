@@ -80,6 +80,7 @@ class profileCog(commands.Cog):
   async def openaccount(self,ctx):
     guild = ctx.guild
     users = await functions.get_user_data(guild)
+    pets = await functions.get_pet_data()
     member = ctx.author
     has_account = await functions.has_account(users, member)
     can_deposit = False
@@ -95,7 +96,7 @@ class profileCog(commands.Cog):
       if can_deposit:
         await functions.add_account(users, member,amount)
         await functions.subtract_coins(users, member,amount)
-        await functions.update_file(guild, users)
+        await functions.update_db(members, pets)
         await ctx.send("You now have a bank account with a balance of " + str(amount) + " coins")
       else:
         await ctx.send("You don't have that amount of money in your wallet. Try again")
@@ -104,6 +105,7 @@ class profileCog(commands.Cog):
   async def deposit(self,ctx):
     guild = ctx.guild
     users = await functions.get_user_data(guild)
+    pets = await functions.get_pet_data()
     member = ctx.author
     has_account = await functions.has_account(users, member)
     can_deposit = False
@@ -117,7 +119,7 @@ class profileCog(commands.Cog):
       if can_deposit:
         await functions.deposit_coins(users, member,amount)
         await functions.subtract_coins(users, member,amount)
-        await functions.update_file(guild, users)
+        await functions.update_db(members, pets)
         await ctx.send("You now deposited " + str(amount) + " coins into your bank account.")
       else:
         await ctx.send("You don't have that amount of money in your wallet. Try again")
@@ -128,6 +130,7 @@ class profileCog(commands.Cog):
   async def withdraw(self,ctx):
     guild = ctx.guild
     users = await functions.get_user_data(guild)
+    pets = await functions.get_pet_data()
     member = ctx.author
     has_account = await functions.has_account(users, member)
     withdraw_legal = False
@@ -141,7 +144,7 @@ class profileCog(commands.Cog):
       if withdraw_legal:
         await functions.withdraw_coins(users, member,amount)
         await functions.add_coins(users, member,amount)
-        await functions.update_file(guild, users)
+        await functions.update_db(members, pets)
         await ctx.send("You now withdrawn " + str(amount) + " coins from your bank account.")
       else:
         await ctx.send("You don't have that amount of money in bank account. Try again")
