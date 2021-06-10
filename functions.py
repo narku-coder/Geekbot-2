@@ -6,6 +6,8 @@ url = 'mongodb+srv://dbAdminUser:owner127@cluster1.yf6y8.mongodb.net/geekDatabas
 myclient = pymongo.MongoClient(url)
 geekData = myclient["geekDatabase"]
 geekMemes = geekData["members"]
+geekPets = geekData["pets"]
+geekInventory = geekData["inventory"]
 
 async def update_data(users, user):
   contains = False
@@ -78,11 +80,13 @@ async def can_buy(users, user, amount):
         canBuy = True
   return canBuy
 
-async def add_pet(users, user, name, kind):
-  for emp in users:
+async def add_pet(users, user, name, kind, pets):
+  for emp in pets:
     if emp['user_id'] == user.id:
-      emp['pets'].append({"name": name, "type": kind, "xp": 0, "moves": [], "level": 0, "health": 100})
-      emp['petNum'] += 1
+      emp.append({'name': name, 'type': kind, 'xp': 0, 'move': [], 'level': 0, 'health': 100})
+  for emp2 in users:
+    if emp2['user_id'] == user.id:
+      emp2['petNum'] += 1
   
 async def add_coins(users, user, amount):
   doubleCoins = await active_double_coins(users, user)
@@ -151,7 +155,7 @@ async def get_pet_num(users, user):
 
 async def get_user_data(guild):
   if str(guild) == "Geek Culture Club":
-    members[]
+    members = []
     for member in geekMembers.find():
       members.append(member)
   elif str(guild) == "Narku Vesuba's Bot server":
@@ -160,15 +164,16 @@ async def get_user_data(guild):
   return members
 
 async def get_pet_data():
-  pets[]
+  pets = []
   for pet in geekPets.find():
     pets.append(pet)
   return pets
 
-async def update_file(guild, users):
-  if str(guild) == "Narku Vesuba's Bot server":
-    with open('users.json', 'w') as f:
-      json.dump(users, f)
+async def get_item_data():
+  items = []
+  for item in geekInventory.find():
+    items.append(item)
+  return items
       
 async def update_db(users, pets):
   for user in users:
@@ -184,6 +189,12 @@ async def update_db(users, pets):
       pet_dict = {"$set" : {'name': pet['name'], 'species': pet['level'], 'moves': pet['moves'],
                  'level': pet['level'], 'health': pet['health']}}
       curPet = geekPets.update_one(pet_query, pet_dict)
+      
+async def update_db_items(items)
+  for item in items:
+    item_query = {'user_id': item['user_id']}
+    item_dict = {"$set": {'name': item['name'], 'amount': item['amount']}}
+    curItem = geekInventory.update_one(item_query, item_dict)
 
 async def has_account(users, user):
   has_bank = False
@@ -228,34 +239,27 @@ async def add_interest(users):
     if 'bank' in emp:
       emp['bank'] += .05*emp['bank']
 
-async def add_item(users, user, item):
-  items = []
+async def add_item(items, user, item):
   found = False
-  for emp in users:
-    if emp['user id'] == user.id:
-      if 'inventory' in emp:
-        items = emp['inventory']
-        for thing in items:
-          if thing['name'] == item:
-            thing['num'] += 1
-            found = True
-        if not found:
-          items.append({'name': item, 'num': 1})
-      else:
-        emp.update({'inventory': [{'name': item, 'num': 1}], 'boosts':[{'doubleXp': False, 'cooldown':0}, {'doubleCoins': False, 'cooldown':0},  {'tripleXp': False, 'cooldown':0}]})
+  for emp in items:
+    if emp['user_id'] == user.id:
+      if emp['name]' == item:
+        emp['amount'] += 1
+        found = True
+   if not found:
+    items.append({'user_id': user.id, 'name': item, 'num': 1})
 
-async def get_inventory(users, user):
+async def get_inventory(items, user):
   has_items = False
   items = []
   usable_items = []
-  for emp in users:
+  for emp in items:
     if emp['user_id'] == user.id:
-      if 'inventory' in emp:
-        has_items = True
-        items = emp['inventory']
+      items.append(emp)
+      has_items = True
   if has_items:
     for thing in items:
-      if thing['num'] > 0:
+      if thing['amount'] > 0:
         usable_items.append(thing)
   return has_items, usable_items
 
