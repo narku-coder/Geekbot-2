@@ -5,7 +5,8 @@ import pymongo
 url = 'mongodb+srv://dbAdminUser:owner127@cluster1.yf6y8.mongodb.net/geekDatabase?retryWrites=true&w=majority'
 myclient = pymongo.MongoClient(url)
 geekData = myclient["geekDatabase"]
-geekMemes = geekData["members"]
+geekMemes = geekData["memes"]
+geekMembers = geekData["members"]
 geekPets = geekData["pets"]
 geekInventory = geekData["inventory"]
 
