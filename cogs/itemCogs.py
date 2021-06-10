@@ -76,9 +76,9 @@ class itemCog(commands.Cog):
   async def inventory(self, ctx):
     guild = ctx.guild
     users = await functions.get_user_data(guild)
+    geek_items = await functions.get_item_data()
     member = ctx.author
-    user_items = []
-    has_items, user_items = await functions.get_inventory(users, member)
+    has_items, user_items = await functions.get_inventory(geek_items, member)
     if has_items:
       await ctx.send("Here is your inventory - " + str(user_items))
     else:
