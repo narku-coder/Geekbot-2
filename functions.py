@@ -160,10 +160,9 @@ async def get_user_data(guild):
   return members
 
 async def get_pet_data():
-  if str(guild) == "Geek Culture Club":
-    pets[]
-    for pet in geekPets.find():
-      pets.append(pet)
+  pets[]
+  for pet in geekPets.find():
+    pets.append(pet)
   return pets
 
 async def update_file(guild, users):
