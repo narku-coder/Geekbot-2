@@ -182,7 +182,13 @@ async def get_item_data():
      items.append(item)
    return items
 
-async def update_db(users, pets):
+async def get_boosts_data():
+   boosters = []
+   for boost in geekBoost.find():
+     boosters.append(boost)
+   return boosters
+
+async def update_db(users, pets, boosts):
    for user in users:
      user_query = {'user_id': user['user_id']}
      user_dict = {'xp': user['xp'], 'level': user['level'], 'coin': user['coin'],
@@ -196,6 +202,12 @@ async def update_db(users, pets):
      pet_dict = {"$set" : {'name': pet['name'], 'species': pet['species'], 'moves': pet['moves'],
                  'level': pet['level'], 'health': pet['health'], 'xp': pet['xp']}}
      curPet = geekPets.update_one(pet_query, pet_dict)
+   for boost in boosts:
+     boost_query = {'_id': boost['_id']}
+     boost_dict = {"$set" : {'double_xp': boost['double_xp'], 'double_xp_timer': boost['double_xp_timer'],
+                  'double_coins': boost['double_coins'], 'double_coins_timer': boost['double_coins_timer'], 'triple_xp': boost['triple_xp'],
+                  'triple_xp_timer': boost['triple_xp_timer']}}
+     curBoost = geekBoosts.update_one(boost_query, boost_dict)
 
 async def update_db_items(items):
    for item in items:
@@ -311,18 +323,18 @@ async def decrease_item_count(users, user, item):
          if thing['name'] == item:
            thing['num'] -= 1
 
-async def reset_cooldown(users):
-   for emp in users:
-     if 'boosts' in emp:
-       num = 0
-       while num < 3:
-         if emp['boosts'][num]['cooldown'] > 0:
-            emp['boosts'][num]['cooldown'] -= 60
-            if emp['boosts'][num]['cooldown'] == 0:
-               if num == 0:
-                 emp['boosts'][num]['doubleXp'] = False
-               elif num == 1:
-                 emp['boosts'][num]['doubleCoins'] = False
-               elif num == 2:
-                 emp['boosts'][num]['tripleXp'] = False
-         num = num + 1
+async def reset_cooldown(boosts):
+   for emp in boosts:
+     if emp['double_xp_timer'] > 0:
+       emp['double_xp_timer'] -= 60
+     else:
+       emp['double_xp'] = False
+     if emp['double_coins_timer'] > 0:
+       emp['double_coins_timer'] -= 60
+     else:
+       emp['double_coins'] = False
+     if emp['triple_xp_timer'] > 0:
+       emp['triple_xp_timer'] -= 60
+     else:
+       emp['triple_xp'] = False
+            
