@@ -247,7 +247,6 @@ async def add_item(items, user, item):
         emp['amount'] += 1
         found = True
    if not found:
-    items.append({'user_id': user.id, 'name': item, 'num': 1})
 
 async def get_inventory(items, user):
   has_items = False
