@@ -184,7 +184,7 @@ async def get_item_data():
 
 async def get_boosts_data():
    boosters = []
-   for boost in geekBoost.find():
+   for boost in geekBoosts.find():
      boosters.append(boost)
    return boosters
 
