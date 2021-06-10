@@ -95,10 +95,8 @@ async def on_message(message):
   members = await functions.get_user_data(guild)
   petNum = await functions.get_pet_num(members, user)
   if petNum > 0:
-    pets = await functions.get_pet_data()
     await functions.add_pet_exp(pets, user, 25)
     await functions.update_db(members, pets)
-    members = await functions.get_user_data(guild)
     await functions.pet_level_up(pets, chan)
     await functions.update_db(members, pets)
   
