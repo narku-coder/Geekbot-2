@@ -37,6 +37,7 @@ class petCog(commands.Cog):
     guild = ctx.guild
     users = await functions.get_user_data(guild)
     pets = await functions.get_pet_data()
+    items = await functions.get_item_data()
     member = ctx.author
     pets = fillPetsList()
     items = fillItemsList()
@@ -99,9 +100,9 @@ class petCog(commands.Cog):
           await functions.update_db(members, pets)
           users = await functions.get_user_data(guild)
           print("before add item")
-          await functions.add_item(users, member, itemName)
+          await functions.add_item(items, member, itemName)
           print("after add item")
-          await functions.update_db(members, pets)
+          await functions.update_db_items(items)
           await ctx.send(itemName + " has been added to your inventory")
         else:
           await ctx.send("You don't have enough coins to purchase a " + itemName)
