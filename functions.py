@@ -190,13 +190,12 @@ async def update_db(users, pets):
        user_dict['bank'] = user['bank']
      user_updated = {"$set": user_dict}
      curMember = geekMembers.update_one(user_query, user_updated)
-   if user['petNum'] > 0:
-     for pet in pets:
-       pet_query = {'name': pet['name']}
-       pet_dict = {"$set" : {'name': pet['name'], 'species': pet['species'], 'moves': pet['moves'],
+   for pet in pets:
+     pet_query = {'_id': pet['_id']}
+     pet_dict = {"$set" : {'name': pet['name'], 'species': pet['species'], 'moves': pet['moves'],
                  'level': pet['level'], 'health': pet['health'], 'xp': pet['xp']}}
-       print("pet info is updated.")
-       curPet = geekPets.update_one(pet_query, pet_dict)
+     curPet = geekPets.update_one(pet_query, pet_dict)
+     print("pet info is updated.")
 
 async def update_db_items(items):
    for item in items:
