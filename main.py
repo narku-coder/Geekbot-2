@@ -12,6 +12,7 @@ url = 'mongodb+srv://dbAdminUser:owner127@cluster1.yf6y8.mongodb.net/geekDatabas
 myclient = pymongo.MongoClient(url)
 geekData = myclient["geekDatabase"]
 geekMemes = geekData["memes"]
+geekMembers = geekData["members"]
 geekEncouragements = geekData["encouragements"]
 
 sad_words = ["sad", "depressed", "unhappy", "angry", "miserable", "sucks", "shitty", "shit"]
