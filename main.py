@@ -61,13 +61,14 @@ async def on_message(message):
   user = message.author
   msg = message.content
   await client.process_commands(message)
-
+  pets = await functions.get_pets_data()
+  
   if str(coin_word[0]) in message.content and canEarn:
     await message.channel.send("Congratulations " + message.author.mention + ". You have earned 100 coins for being the first person to type a message containing " + str(coin_word) + ".")
     members = await functions.get_user_data(guild)
     user = message.author
     await functions.add_coins(members, user, 100)
-    await functions.update_file(guild, members)
+    await functions.update_db(members, pets)
     canEarn = False
     await message.channel.send("This event has ended.")
   
@@ -79,25 +80,25 @@ async def on_message(message):
 
   members = await functions.get_user_data(guild)
   await functions.update_data(members, user)
-  await functions.update_file(guild, members)
+  await functions.update_db(members, pets)
   members = await functions.get_user_data(guild)
   await functions.add_experience(members, user, 10)
-  await functions.update_file(guild, members)
+  await functions.update_db(members, pets)
   members = await functions.get_user_data(guild)
   await functions.add_coins(members, user, 10)
-  await functions.update_file(guild, members)
+  await functions.update_db(members, pets)
   members = await functions.get_user_data(guild)
   await functions.level_up(members, user, message.channel)
-  await functions.update_file(guild, members)
+  await functions.update_db(members, pets)
   members = await functions.get_user_data(guild)
   petNum = await functions.get_pet_num(members, user)
   if petNum > 0:
-    members = await functions.get_user_data(guild)
-    await functions.add_pet_exp(members, user, 25)
-    await functions.update_file(guild, members)
+    pets = await functions.get_pet_data()
+    await functions.add_pet_exp(pets, user, 25)
+    await functions.update_db(members, pets)
     members = await functions.get_user_data(guild)
     await functions.pet_level_up(members, user, message.channel)
-    await functions.update_file(guild, members)
+    aawait functions.update_db(members, pets)
   msg = message.content
   
 @client.event
@@ -110,8 +111,9 @@ async def on_member_join(member):
   else:
     await member.send("Welcome to the " + str(guild) + ". The best server in Discord.")
   members = await functions.get_user_data(guild)
+  pets = await functions.get_pet_data()
   await functions.update_data(members, member)
-  await functions.update_file(guild, members)
+  await functions.update_db(members, pets)
 
 @tasks.loop(hours=4)
 async def interest_gainer():
@@ -119,9 +121,10 @@ async def interest_gainer():
     num = 0
     while num < len(guilds):
       guild = guilds[num]
+      pets = await functions.get_pet_data()
       members = await functions.get_user_data(guild)
       await functions.add_interest(members)
-      await functions.update_file(guild, members)
+      await functions.update_db(members, pets)
       num = num + 1
 
 @tasks.loop(minutes=1)
@@ -131,8 +134,9 @@ async def lower_cooldown():
   while num < len(guilds):
     guild = guilds[num]
     members = await functions.get_user_data(guild)
+    pets = await functions.get_pet_data()
     await functions.reset_cooldown(members)
-    await functions.update_file(guild, members)
+    await functions.update_db(members, pets)
     num = num + 1
 
 def addMemesToDB():
