@@ -35,7 +35,7 @@ class itemCog(commands.Cog):
     if has_items:
       num = 0
       for item in user_items:
-        line = str((num + 1)) + " - " + item['name']
+        line = str((num + 1)) + " - " + item
         item_display.append(line)
         num = num + 1
       await ctx.send(str(item_display) + " Type the number for the item you want to consume.")
