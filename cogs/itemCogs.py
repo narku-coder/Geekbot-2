@@ -30,7 +30,7 @@ class itemCog(commands.Cog):
     itemsList = ['cookie','soda', 'brownies', 'pizza', 'cake']
     user_items = []
     has_items = False
-    has_items, user_items = await functions.get_inventory(users, member)
+    has_items, user_items = await functions.get_inventory(items, member)
     item_display = []
     if has_items:
       num = 0
