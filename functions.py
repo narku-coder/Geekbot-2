@@ -256,7 +256,7 @@ async def get_account_balance(users, user):
 async def add_interest(users):
    for emp in users:
      if 'bank' in emp:
-       emp['bank'] += .2*emp['bank']
+       emp['bank'] += .15*emp['bank']
 	
 async def add_item(items, user, item):
    found = False
