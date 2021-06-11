@@ -115,7 +115,7 @@ async def on_member_join(member):
   await functions.update_data(members, member)
   await functions.update_db(members, pets, boosts)
 
-@tasks.loop(hours=2)
+@tasks.loop(hours=4)
 async def interest_gainer():
    print("Interest is generating.")
    guilds = client.guilds
