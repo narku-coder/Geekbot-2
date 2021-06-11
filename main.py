@@ -117,16 +117,17 @@ async def on_member_join(member):
 
 @tasks.loop(hours=2)
 async def interest_gainer():
-    guilds = client.guilds
-    num = 0
-    while num < len(guilds):
-      guild = guilds[num]
-      pets = await functions.get_pet_data()
-      members = await functions.get_user_data(guild)
-      boosts = await functions.get_boosts_data()
-      await functions.add_interest(members)
-      await functions.update_db(members, pets, boosts)
-      num = num + 1
+   print("Interest is generating.")
+   guilds = client.guilds
+   num = 0
+   while num < len(guilds):
+     guild = guilds[num]
+     pets = await functions.get_pet_data()
+     members = await functions.get_user_data(guild)
+     boosts = await functions.get_boosts_data()
+     await functions.add_interest(members)
+     await functions.update_db(members, pets, boosts)
+     num = num + 1
 
 @tasks.loop(minutes=1)
 async def lower_cooldown():
