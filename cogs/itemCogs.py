@@ -23,8 +23,11 @@ class itemCog(commands.Cog):
   async def eat(self, ctx):
     guild = ctx.guild
     users = await functions.get_user_data(guild)
+    items = await functions.get_item_data()
+    boosts = await functions.get_boosts_data()
+    pets = await functions.get_pet_data()
     member = ctx.author
-    items = ['cookie','soda', 'brownies', 'pizza', 'cake']
+    itemsList = ['cookie','soda', 'brownies', 'pizza', 'cake']
     user_items = []
     has_items = False
     has_items, user_items = await functions.get_inventory(users, member)
@@ -44,33 +47,35 @@ class itemCog(commands.Cog):
         await ctx.send(str(index) + " is not a valid option. Try again")
       else:
         chosenItemName = user_items[(index-1)]['name']
-        if chosenItemName == items[0]:
+        if chosenItemName == itemsList[0]:
           randomXp = random.randint(0, 100)
-          await functions.add_experience(users, member, randomXp)
+          await functions.add_experience(users, member, randomXp, boosts)
           await ctx.send("Your cookie has granted you " + str(randomXp) + " xp.")
-          await functions.decrease_item_count(users, member, chosenItemName)
-          await functions.update_file(guild, users)
-        elif chosenItemName == items[1]:
+          await functions.decrease_item_count(items, member, chosenItemName)
+          await functions.update_db(users, pets, boosts)
+          await functions.update_db_items(items)
+        elif chosenItemName == itemsList[1]:
           randomCoins = random.randint(0, 100)
-          await functions.add_coins(users, member, randomCoins)
+          await functions.add_coins(users, member, randomCoins, boosts)
           await ctx.send("Your soda has granted you " + str(randomCoins) + " coins.")
-          await functions.decrease_item_count(users, member, chosenItemName)
-          await functions.update_file(guild, users)
-        elif chosenItemName == items[2]:
+          await functions.decrease_item_count(items, member, chosenItemName)
+          await functions.update_db(users, pets, boosts)
+          await functions.update_db_items(items)
+        elif chosenItemName == itemsList[2]:
           await functions.activate_boost(users, member, 0)
           await ctx.send("You activate your temporary double xp boost")
-          await functions.decrease_item_count(users, member, chosenItemName)
-          await functions.update_file(guild, users)
-        elif chosenItemName == items[3]:
+          await functions.decrease_item_count(items, member, chosenItemName)
+          await functions.update_db_items(items)
+        elif chosenItemName == itemsList[3]:
           await functions.activate_boost(users, member, 1)
           await ctx.send("You activate your temporary double coin boost")
-          await functions.decrease_item_count(users, member, chosenItemName)
-          await functions.update_file(guild, users)
-        elif chosenItemName == items[4]:
+          await functions.decrease_item_count(items, member, chosenItemName)
+          await functions.update_db_items(items)
+        elif chosenItemName == itemsList[4]:
           await functions.activate_boost(users, member, 2)
           await ctx.send("You activate your temporary triple xp boost")
-          await functions.decrease_item_count(users, member, chosenItemName)
-          await functions.update_file(guild, users)
+          await functions.decrease_item_count(items, member, chosenItemName)
+          await functions.update_db_items(items)
 
   @commands.command()
   async def inventory(self, ctx):
