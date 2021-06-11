@@ -73,7 +73,7 @@ class petCog(commands.Cog):
           await ctx.send(str(pet_display) + " Type the number for the item you want to buy.")
           msg = await self.bot.wait_for("message", check = check)
           index = int(msg.content)
-        kind = pets[(index-1)]
+        kind = petsList[(index-1)]
         await ctx.send("What name do you want to give your pet?")
         def checkTwo(msg):
           return msg.author == ctx.author
