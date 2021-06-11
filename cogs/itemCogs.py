@@ -46,7 +46,7 @@ class itemCog(commands.Cog):
       if index > len(user_items):
         await ctx.send(str(index) + " is not a valid option. Try again")
       else:
-        chosenItemName = user_items[(index-1)]['name']
+        chosenItemName = user_items[(index-1)]
         if chosenItemName == itemsList[0]:
           randomXp = random.randint(0, 100)
           await functions.add_experience(users, member, randomXp, boosts)
