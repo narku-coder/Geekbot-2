@@ -88,7 +88,7 @@ async def can_buy(users, user, amount):
    return canBuy
 
 async def add_pet(users, user, name, kind, pets):
-   pet_dict = {'user_id': user.id, 'name': name, 'type': kind, 'xp': 0, 'move': [], 'level': 0, 'health': 100}
+   pet_dict = {'user_id': user.id, 'name': name, 'species': kind, 'xp': 0, 'move': [], 'level': 0, 'health': 100}
    pets.append(pet_dict)
    newPet = geekPets.insert_one(pet_dict)
    for emp2 in users:
@@ -266,7 +266,10 @@ async def add_item(items, user, item):
          emp['amount'] += 1
          found = True
    if not found:
-     items.append({'user_id': user.id, 'name': item, 'num': 1})
+     item_dict = {'user_id': user.id, 'name': item, 'num': 1}
+     items.append(item_dict)
+     newItem = geekInventory.insert_one(item_dict)
+
              
 async def get_inventory(items, user):
    has_items = False
