@@ -45,12 +45,12 @@ class petCog(commands.Cog):
     pet_display = []
     item_display = []
     num = 0
-    while num < len(petsList-1):
+    while num < (len(petsList)-1):
       line = str((num + 1)) + " - " + petsList[num]
       pet_display.append(line)
       num = num + 1
     num2 = 0
-    while num2 < len(itemsList-1):
+    while num2 < (len(itemsList)-1):
       line = str((num2 + 1)) + " - " + itemsList[num2]
       item_display.append(line)
       num2 = num2 + 1
