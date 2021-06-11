@@ -38,6 +38,7 @@ class petCog(commands.Cog):
     users = await functions.get_user_data(guild)
     pets = await functions.get_pet_data()
     items = await functions.get_item_data()
+    boosts = await functions.get_boosts_data()
     member = ctx.author
     pets = fillPetsList()
     items = fillItemsList()
@@ -61,7 +62,7 @@ class petCog(commands.Cog):
       if(canBuy):
         await functions.subtract_coins(users, member, 1000)
         print("after 1000 subtract coin")
-        await functions.update_db(users, pets)
+        await functions.update_db(users, pets, boosts)
         await ctx.send("Choose one from the available options." + str(pet_display) + " Type the number for the pet you want to own.")
         def check(msg):
           return msg.author == ctx.author and msg.content.isnumeric()
@@ -78,7 +79,7 @@ class petCog(commands.Cog):
           name = msg.content
           users = await functions.get_user_data(guild)
           await functions.add_pet(users, member, name, kind, pets)
-          await functions.update_db(users, pets)
+          await functions.update_db(users, pets, boosts)
           await ctx.send("Congratulations on your new pet " + name + " the " + kind + ". I wish y'all lots of fun and happy time together")
     elif arg == "item":
       await ctx.send(str(item_display) + " Type the number for the item you want to buy.")
@@ -97,7 +98,7 @@ class petCog(commands.Cog):
         if canBuy:
           await functions.subtract_coins(users, member, int(itemPrice))
           print("after item price subtract coin")
-          await functions.update_db(users, pets)
+          await functions.update_db(users, pets, boosts)
           users = await functions.get_user_data(guild)
           print("before add item")
           await functions.add_item(items, member, itemName)
