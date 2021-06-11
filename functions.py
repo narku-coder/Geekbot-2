@@ -314,12 +314,11 @@ async def active_triple_xp(boosts, user):
          is_active = emp['triple_xp']
    return is_active
 
-async def decrease_item_count(users, user, item):
-   for emp in users:
-     if emp['user id'] == user.id:
-       for thing in emp['inventory']:
-         if thing['name'] == item:
-           thing['num'] -= 1
+async def decrease_item_count(items, user, item):
+   for emp in items:
+     if emp['user_id'] == user.id:
+       if emp['name'] == item:
+         emp['amount'] -= 1
 
 async def reset_cooldown(boosts):
    for emp in boosts:
