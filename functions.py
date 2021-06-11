@@ -284,14 +284,14 @@ async def activate_boost(boosts, user, num):
    for emp in boosts:
      if emp['user_id'] == user.id:
        if int(num) == 0:
-         emp['boosts'][0]['doubleXp'] = True
-         emp['boosts'][0]['cooldown'] = 14400
+         emp['double_xp'] = True
+         emp['double_xp_timer'] = 14400
        elif int(num) == 1:
-         emp['boosts'][1]['doubleCoins'] = True
-         emp['boosts'][1]['cooldown'] = 14400
+         emp['double_coins'] = True
+         emp['double_coins_timer'] = 14400
        elif int(num) == 2:
-         emp['boosts'][2]['tripleXp'] = True
-         emp['boosts'][2]['cooldown'] = 14400
+         emp['triple_xp'] = True
+         emp['triple_xp_timer'] = 14400
 
 async def active_double_coins(boosts, user):
    is_active = False
