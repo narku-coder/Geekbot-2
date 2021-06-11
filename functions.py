@@ -88,8 +88,9 @@ async def can_buy(users, user, amount):
    return canBuy
 
 async def add_pet(users, user, name, kind, pets):
-   pets.append({'user_id': user.id, 'name': name, 'type': kind, 'xp': 0, 'move': [], 'level': 0, 'health': 100})
-   newPet = GeekPets.insert_one({'user_id': user.id, 'name': name, 'type': kind, 'xp': 0, 'move': [], 'level': 0, 'health': 100})
+   pet_dict = {'user_id': user.id, 'name': name, 'type': kind, 'xp': 0, 'move': [], 'level': 0, 'health': 100}
+   pets.append(pet_dict)
+   newPet = GeekPets.insert_one(pet_dict)
    for emp2 in users:
      if emp2['user_id'] == user.id:
        emp2['petNum'] += 1
