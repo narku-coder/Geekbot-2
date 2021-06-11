@@ -94,7 +94,7 @@ class petCog(commands.Cog):
           await ctx.send(str(item_display) + " Type the number for the item you want to buy.")
           msg = await self.bot.wait_for("message", check = check)
           index = int(msg.content)
-      chosenItem = items[(index-1)]
+      chosenItem = itemsList[(index-1)]
       item_splits = chosenItem.split(" ")
       itemName = item_splits[0]
       itemPrice = item_splits[1]
