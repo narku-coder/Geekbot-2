@@ -66,16 +66,19 @@ class itemCog(commands.Cog):
           await ctx.send("You activate your temporary double xp boost")
           await functions.decrease_item_count(items, member, chosenItemName)
           await functions.update_db_items(items)
+          await functions.update_db(users, pets, boosts)
         elif chosenItemName == itemsList[3]:
           await functions.activate_boost(users, member, 1)
           await ctx.send("You activate your temporary double coin boost")
           await functions.decrease_item_count(items, member, chosenItemName)
           await functions.update_db_items(items)
+          await functions.update_db(users, pets, boosts)
         elif chosenItemName == itemsList[4]:
           await functions.activate_boost(users, member, 2)
           await ctx.send("You activate your temporary triple xp boost")
           await functions.decrease_item_count(items, member, chosenItemName)
           await functions.update_db_items(items)
+          await functions.update_db(users, pets, boosts)
 
   @commands.command()
   async def inventory(self, ctx):
