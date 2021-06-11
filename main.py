@@ -121,6 +121,7 @@ async def interest_gainer():
    guilds = client.guilds
    num = 0
    while num < len(guilds):
+     print("Inside the interest while loop")
      guild = guilds[num]
      pets = await functions.get_pet_data()
      members = await functions.get_user_data(guild)
