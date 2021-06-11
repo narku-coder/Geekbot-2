@@ -40,18 +40,18 @@ class petCog(commands.Cog):
     items = await functions.get_item_data()
     boosts = await functions.get_boosts_data()
     member = ctx.author
-    pets = fillPetsList()
-    items = fillItemsList()
+    petsList = fillPetsList()
+    itemsList = fillItemsList()
     pet_display = []
     item_display = []
     num = 0
-    while num < len(pets):
-      line = str((num + 1)) + " - " + pets[num]
+    while num < len(petsList):
+      line = str((num + 1)) + " - " + petsList[num]
       pet_display.append(line)
       num = num + 1
     num2 = 0
     while num2 < len(items):
-      line = str((num2 + 1)) + " - " + items[num2]
+      line = str((num2 + 1)) + " - " + itemsList[num2]
       item_display.append(line)
       num2 = num2 + 1
     canBuy = False
