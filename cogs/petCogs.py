@@ -50,7 +50,7 @@ class petCog(commands.Cog):
       pet_display.append(line)
       num = num + 1
     num2 = 0
-    while num2 < len(items):
+    while num2 < len(itemsList):
       line = str((num2 + 1)) + " - " + itemsList[num2]
       item_display.append(line)
       num2 = num2 + 1
@@ -68,45 +68,49 @@ class petCog(commands.Cog):
           return msg.author == ctx.author and msg.content.isnumeric()
         msg = await self.bot.wait_for("message", check = check)
         index = int(msg.content)
-        if index > len(pets):
+        while index > len(petsList):
           await ctx.send(str(index) + " is not a valid option. Try again")
-        else:
-          kind = pets[(index-1)]
-          await ctx.send("What name do you want to give your pet?")
-          def checkTwo(msg):
-            return msg.author == ctx.author
-          msg = await self.bot.wait_for("message", check = checkTwo)
-          name = msg.content
-          users = await functions.get_user_data(guild)
-          await functions.add_pet(users, member, name, kind, pets)
-          await functions.update_db(users, pets, boosts)
-          await ctx.send("Congratulations on your new pet " + name + " the " + kind + ". I wish y'all lots of fun and happy time together")
+          await ctx.send(str(pet_display) + " Type the number for the item you want to buy.")
+          msg = await self.bot.wait_for("message", check = check)
+          index = int(msg.content)
+        kind = pets[(index-1)]
+        await ctx.send("What name do you want to give your pet?")
+        def checkTwo(msg):
+          return msg.author == ctx.author
+        msg = await self.bot.wait_for("message", check = checkTwo)
+        name = msg.content
+        users = await functions.get_user_data(guild)
+        await functions.add_pet(users, member, name, kind, pets)
+        await functions.update_db(users, pets, boosts)
+        await ctx.send("Congratulations on your new pet " + name + " the " + kind + ". I wish y'all lots of fun and happy time together")
     elif arg == "item":
       await ctx.send(str(item_display) + " Type the number for the item you want to buy.")
       def check(msg):
         return msg.author == ctx.author and msg.content.isnumeric()
       msg = await self.bot.wait_for("message", check = check)
       index = int(msg.content)
-      if index > len(items):
+      while index > len(items):
           await ctx.send(str(index) + " is not a valid option. Try again")
+          await ctx.send(str(item_display) + " Type the number for the item you want to buy.")
+          msg = await self.bot.wait_for("message", check = check)
+          index = int(msg.content)
+      chosenItem = items[(index-1)]
+      item_splits = chosenItem.split(" ")
+      itemName = item_splits[0]
+      itemPrice = item_splits[1]
+      canBuy = await functions.can_buy(users, member, int(itemPrice))
+      if canBuy:
+        await functions.subtract_coins(users, member, int(itemPrice))
+        print("after item price subtract coin")
+        await functions.update_db(users, pets, boosts)
+        users = await functions.get_user_data(guild)
+        print("before add item")
+        await functions.add_item(items, member, itemName)
+        print("after add item")
+        await functions.update_db_items(items)
+        await ctx.send(itemName + " has been added to your inventory")
       else:
-        chosenItem = items[(index-1)]
-        item_splits = chosenItem.split(" ")
-        itemName = item_splits[0]
-        itemPrice = item_splits[1]
-        canBuy = await functions.can_buy(users, member, int(itemPrice))
-        if canBuy:
-          await functions.subtract_coins(users, member, int(itemPrice))
-          print("after item price subtract coin")
-          await functions.update_db(users, pets, boosts)
-          users = await functions.get_user_data(guild)
-          print("before add item")
-          await functions.add_item(items, member, itemName)
-          print("after add item")
-          await functions.update_db_items(items)
-          await ctx.send(itemName + " has been added to your inventory")
-        else:
-          await ctx.send("You don't have enough coins to purchase a " + itemName)
+        await ctx.send("You don't have enough coins to purchase a " + itemName)
     elif arg == 'menu':
       embed = discord.Embed(title="Shop commands", description = "A list of available shop commands", color = discord.Colour.blue())
       embed.add_field(name = "Purchase a pet for 1000 coins", value = "#buy pet", inline = True)
