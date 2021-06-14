@@ -166,7 +166,7 @@ class profileCog(commands.Cog):
     await ctx.send("Current rankings:  \n---------------------\n")
     for user in users:
       user_name = await bot.fetch_user(user['user_id'])
-      await ctx.send(str(num)) + ".  " + user_name + "\n")
+      await ctx.send((str(num)) + ".  " + user_name + "\n")
 
 def setup(bot):
     bot.add_cog(profileCog(bot))
