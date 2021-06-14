@@ -166,8 +166,10 @@ class profileCog(commands.Cog):
     num = 1
     await ctx.send("Current rankings:  \n---------------------\n")
     for user in users:
-      user_name = await self.bot.fetch_user(user['user_id'])
-      await ctx.send((str(num)) + ".  " + user_name + "\n")
+      geek = await self.bot.fetch_user(user['user_id'])
+      name1 = geek.name
+      total = user['total_xp']
+      await ctx.send((str(num)) + ".  " + name1 + " with " + str(total) " xp" + "\n")
 
 def setup(bot):
     bot.add_cog(profileCog(bot))
