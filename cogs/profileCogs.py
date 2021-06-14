@@ -162,7 +162,7 @@ class profileCog(commands.Cog):
       user.update({'total_xp': total_exp})
     def get_all_xp(e):
       return e['total_xp']
-    users.sort(key=get_all_xp)
+    users.sort(reverse=True, key=get_all_xp)
     num = 1
     await ctx.send("Current rankings:  \n---------------------\n")
     for user in users:
