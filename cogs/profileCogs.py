@@ -153,6 +153,7 @@ class profileCog(commands.Cog):
       
   @commands.command()
   async def ranking(self, ctx):
+    guild = ctx.guild
     users = await functions.get_user_data(guild)
     for user in users:
       level = user['level']
