@@ -66,3 +66,12 @@ def getDailyWord():
 def update_meme_list(new_url):
   meme_dict = {'url': new_url}
   newMeme = geekMemes.insert_one(meme_dict)
+  
+def get_total_exp(lvl, exp):
+  num = lvl-1
+  total
+  while num > 0:
+    total += num*100
+    num = num - 1
+  total += exp
+  return total
