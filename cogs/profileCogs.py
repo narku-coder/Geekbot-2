@@ -169,7 +169,7 @@ class profileCog(commands.Cog):
       geek = await self.bot.fetch_user(user['user_id'])
       name1 = geek.name
       total = user['total_xp']
-      await ctx.send((str(num)) + ".  " + name1 + " with " + str(total) " xp" + "\n")
+      await ctx.send((str(num)) + ".  " + name1 + " with " + str(total) + " xp" + "\n")
 
 def setup(bot):
     bot.add_cog(profileCog(bot))
