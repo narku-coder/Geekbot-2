@@ -171,6 +171,7 @@ class profileCog(commands.Cog):
       name1 = geek.name
       total = user['total_xp']
       await ctx.send((str(num)) + ".  " + name1 + " with " + str(total) + " xp" + "\n")
+      num = num + 1
 
 def setup(bot):
     bot.add_cog(profileCog(bot))
