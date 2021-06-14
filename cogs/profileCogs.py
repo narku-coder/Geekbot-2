@@ -150,6 +150,23 @@ class profileCog(commands.Cog):
         await ctx.send("You don't have that amount of money in bank account. Try again")
     else:
       await ctx.send("You don't have a bank account")
+      
+  @commands.command()
+  async def ranking(self, ctx):
+    users = await functions.get_user_data(guild)
+    for user in users:
+      level = user['level']
+      exp = user['xp']
+      total_exp = normalFunctions.get_total_exp(level, exp)
+      user.update({'total_xp': total_exp})
+    def get_all_xp(e):
+      return e['total_xp']
+    users.sort(key=get_all_xp)
+    num = 1
+    await ctx.send("Current rankings:  \n---------------------\n")
+    for user in users:
+      user_name = await bot.fetch_user(user['user_id'])
+      await ctx.send(str(num)) + ".  " + user_name + "\n")
 
 def setup(bot):
     bot.add_cog(profileCog(bot))
