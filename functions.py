@@ -276,10 +276,10 @@ async def get_inventory(items, user):
    usable_items = []
    for emp in items:
      if emp['user_id'] == user.id:
-	      if "amount" in emp:
-		       if emp['amount'] > 0:
-			       usable_items.append(emp['name'])
-             has_items = True
+        if "amount" in emp:
+           if emp['amount'] > 0:
+              usable_items.append(emp['name'])
+              has_items = True
    return has_items, usable_items
 
 async def activate_boost(boosts, user, num):
