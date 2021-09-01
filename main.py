@@ -53,7 +53,6 @@ async def coin_message_sender():
 
 @client.event
 async def on_message(message):
-  canEarn = True
   if message.author == client.user:
     return
   
