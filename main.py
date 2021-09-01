@@ -59,7 +59,7 @@ async def on_message(message):
   guild = message.guild
   user = message.author
   msg = message.content
-  chan = message.channel
+  chan = client.get_channel(800835935490539541)
   await client.process_commands(message)
   pets = await functions.get_pet_data()
   boosts = await functions.get_boosts_data()
