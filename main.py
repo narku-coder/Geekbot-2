@@ -15,7 +15,8 @@ geekMemes = geekData["memes"]
 geekMembers = geekData["members"]
 geekEncouragements = geekData["encouragements"]
 
-sad_words = ["sad", "depressed", "unhappy", "angry", "miserable", "sucks", "shitty", "shit"]
+sad_words = ["sad", "depressed", "unhappy", "angry", "miserable", "sucks", "shitty", "shit", "anxious", "worried", "stressed", "despondent", "hopeless",
+            "scared", "afraid"]
 deleted_messages = []
 client = commands.Bot(command_prefix='!')
 earnNum = 0
@@ -78,7 +79,7 @@ async def on_message(message):
   for message in geekEncouragements.find():
     options.append(message['message'])
   if any(word in msg for word in sad_words):
-    await message.channel.send(random.choice(options))
+    await msg.channel.send(random.choice(options))
 
   members = await functions.get_user_data(guild)
   await functions.update_data(members, user)
