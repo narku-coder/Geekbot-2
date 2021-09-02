@@ -70,8 +70,8 @@ async def on_message(message):
     await message.channel.send("Congratulations " + message.author.mention + ". You have earned 100 coins for being the first person to type a message containing " + str(coin_word) + ".")
     members = await functions.get_user_data(guild)
     user = message.author
-    await functions.add_coins(members, user, 100)
-    await functions.update_db(members, pets)
+    await functions.add_coins(members, user, 100, boosts)
+    await functions.update_db(members, pets, boosts)
     earnNum = 1
     await message.channel.send("This event has ended.")
   
