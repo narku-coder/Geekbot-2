@@ -18,7 +18,7 @@ geekEncouragements = geekData["encouragements"]
 sad_words = ["sad", "depressed", "unhappy", "angry", "miserable", "sucks", "shitty", "shit"]
 deleted_messages = []
 client = commands.Bot(command_prefix='!')
-canEarn = True
+earnNum = 0
 
 def generate_coin_word():
   animals_list = open('./textFiles/animals.txt', 'r')
@@ -48,7 +48,7 @@ async def coin_message_sender():
     coin_word[0] = generate_coin_word()
     channel = client.get_channel(800835935490539541)
     await channel.send("Here is an opportunity to earn 100 coins. The first person to type a message with this animal - " + str(coin_word[0]) + " - will earn 100 coins.")
-    canEarn = True
+    earnNum = 0
 #Bot event functions
 
 @client.event
@@ -64,13 +64,13 @@ async def on_message(message):
   pets = await functions.get_pet_data()
   boosts = await functions.get_boosts_data()
   
-  if str(coin_word[0]) in message.content and canEarn:
+  if str(coin_word[0]) in message.content and earnNum == 0:
     await message.channel.send("Congratulations " + message.author.mention + ". You have earned 100 coins for being the first person to type a message containing " + str(coin_word) + ".")
     members = await functions.get_user_data(guild)
     user = message.author
     await functions.add_coins(members, user, 100)
     await functions.update_db(members, pets)
-    canEarn = False
+    earnNum = 1
     await message.channel.send("This event has ended.")
   
   options = []
