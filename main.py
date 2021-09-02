@@ -79,7 +79,7 @@ async def on_message(message):
   for message in geekEncouragements.find():
     options.append(message['message'])
   if any(word in msg for word in sad_words):
-    await msg.channel.send(random.choice(options))
+    await message.channel.send(random.choice(options))
 
   members = await functions.get_user_data(guild)
   await functions.update_data(members, user)
