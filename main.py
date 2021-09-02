@@ -64,6 +64,7 @@ async def on_message(message):
   pets = await functions.get_pet_data()
   boosts = await functions.get_boosts_data()
   
+  global earnNum
   if str(coin_word[0]) in message.content and earnNum == 0:
     await message.channel.send("Congratulations " + message.author.mention + ". You have earned 100 coins for being the first person to type a message containing " + str(coin_word) + ".")
     members = await functions.get_user_data(guild)
