@@ -154,8 +154,8 @@ def addMemesToDB():
     normalFunctions.update_meme_list(memes[num]["url"])
     num = num + 1
 
-addMemesToDB()
-addMemesToDB()
+#addMemesToDB()
+#addMemesToDB()
 interest_gainer.start()
 coin_message_sender.start()
 lower_cooldown.start()
