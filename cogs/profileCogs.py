@@ -165,7 +165,7 @@ class profileCog(commands.Cog):
     users.sort(reverse=True, key=get_all_xp)
     num = 1
     await ctx.send("Current rankings:  \n---------------------\n")
-    for user in users:
+    for user in users[:10]
       print("current user id - " + str(user['user_id']))
       geek = await self.bot.fetch_user(user['user_id'])
       name1 = geek.name
