@@ -68,7 +68,8 @@ async def on_message(message):
            
   global earnNum
   print("earnNum - " + str(earnNum))
-  if str(coin_word[0]) in msg.lower() and earnNum == 0:
+  lowMsg = msg.lower()
+  if lowMsg.find(str(coin_word[0])) > 0 and earnNum == 0:
     await message.channel.send("Congratulations " + message.author.mention + ". You have earned 100 coins for being the first person to type a message containing " + str(coin_word) + ".")
     print("coin message author - " + message.author.name)
     members = await functions.get_user_data(guild)
