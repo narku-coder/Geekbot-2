@@ -43,10 +43,11 @@ for file in os.listdir('./cogs'):
     client.load_extension(f'cogs.{file[:-3]}')
 
 coin_word = ['owl']
-@tasks.loop(hours=5)
+@tasks.loop(hours=1)
 async def coin_message_sender():
   if client.is_ready():
     coin_word[0] = generate_coin_word()
+    print("spec word - " + coin_word[0])
     channel = client.get_channel(800835935490539541)
     await channel.send("Here is an opportunity to earn 100 coins. The first person to type a message with this animal - " + str(coin_word[0]) + " - will earn 100 coins.")
     earnNum = 0
