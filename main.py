@@ -51,6 +51,7 @@ async def coin_message_sender():
     channel = client.get_channel(800835935490539541)
     await channel.send("Here is an opportunity to earn 100 coins. The first person to type a message with this animal - " + str(coin_word[0]) + " - will earn 100 coins.")
     earnNum = 0
+     print("earnNum at message sent - " + str(earnNum))
 #Bot event functions
 
 @client.event
