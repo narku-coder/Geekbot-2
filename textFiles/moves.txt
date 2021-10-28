@@ -23,3 +23,8 @@ flying kick
 ice blast
 evade
 block
+criticize
+hurt
+bother
+inhibit
+inform
