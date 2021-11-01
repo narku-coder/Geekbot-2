@@ -142,8 +142,8 @@ class CommandsCog(commands.Cog):
             await ctx.send(pun_text)
  
   @commands.command()
-  async def ping(ctx):
-    await ctx.send('Pong! {0}'.format(round(bot.latency, 1)))
+  async def ping(self, ctx):
+    await ctx.send('Pong! {0}'.format(round(self.bot.latency, 1)))
     
   @commands.command()
   async def commandlist(self, ctx):
