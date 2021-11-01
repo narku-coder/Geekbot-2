@@ -142,6 +142,10 @@ class CommandsCog(commands.Cog):
             await ctx.send(pun_text)
  
   @commands.command()
+  async def ping(ctx):
+    await ctx.send('Pong! {0}'.format(round(bot.latency, 1)))
+    
+  @commands.command()
   async def commandlist(self, ctx):
     embed = discord.Embed(title="List of commands", description = "A list of available discord commands", color = discord.Colour.red())
     embed.add_field(name = "Inspirational quote", value = "!quote", inline = True)
