@@ -143,7 +143,7 @@ class CommandsCog(commands.Cog):
  
   @commands.command()
   async def ping(self, ctx):
-    await ctx.send('Pong! {0}'.format(round(self.bot.latency, 1)))
+    await ctx.send(f'My ping is {self.bot.latency}! ms')
     
   @commands.command()
   async def commandlist(self, ctx):
