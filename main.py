@@ -45,6 +45,7 @@ for file in os.listdir('./cogs'):
 coin_word = ['owl']
 @tasks.loop(hours=5)
 async def coin_message_sender():
+  print("Message is sending")
   if client.is_ready():
     coin_word[0] = generate_coin_word()
     print("spec word - " + coin_word[0])
