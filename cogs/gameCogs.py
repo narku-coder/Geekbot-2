@@ -249,17 +249,24 @@ class gameCog(commands.Cog):
       player2_hand_display = gofish.printHand(player2_hand)
       await player2.send("\n\nYour hand - " + str(player2_hand_display))
       while playing:
-        await ctx.send("Card on top of pile: {}".format(discards[discardSize]) + "\n Player 1 hand size - " + str(len(player1_hand)) + "\n Player 2 hand size - " + str(len(player2_hand)))
         if playerTurn == 0:
+          await ctx.send("It is " + player1.mention + " turn.\n\n")
+          await ctx.send("Card on top of pile: {}".format(discards[discardSize]) + "\n Player 1 hand size - " + str(len(player1_hand)) + "\n Player 2 hand size - " + str(len(player2_hand)))
           player1_hand_display = gofish.printHand(player1_hand)
           await player1.send("\n\nYour hand - " + str(player1_hand_display))
-          await ctx.send("It is " + player1.mention + " turn. Choose a card to play by typing the number to the left off the card, type 0 to draw a card or -1 to call uno")
+          await ctx.send("Choose a card to play by typing the number to the left off the card, type 0 to draw a card or -1 to call uno")
           def checkTwo(msg):
             return msg.author == player1
           msg = await self.bot.wait_for("message", check = checkTwo)
           resp = int(msg.content)
           if resp <= len(player1_hand) and resp > 0:
             current_card = player1_hand.pop((resp-1))
+            if len(player1_hand) == 0:
+               ctx.send(player1.mentions + " wins. Congratulations you earned 25 coins!")
+               members = await functions.get_user_data(guild)
+               await functions.add_coins(members, player1, 25)
+               await functions.update_file(guild, members)
+               playing = False
             card_splits = current_card.split(" ")
             current_color = card_splits[0]
             current_value = card_splits[1]
@@ -309,19 +316,28 @@ class gameCog(commands.Cog):
                 num = num + 1
               playerTurn = 0
             else:
+              await ctx.send(player1.mention + " has Uno.")
               playerTurn = 1
           else:
             await ctx.send("The number was invalid. Try again")
         elif playerTurn == 1:
+          await ctx.send("It is " + player2.mention + " turn.\n\n")
+          await ctx.send("Card on top of pile: {}".format(discards[discardSize]) + "\n Player 1 hand size - " + str(len(player1_hand)) + "\n Player 2 hand size - " + str(len(player2_hand)))
           player2_hand_display = gofish.printHand(player2_hand)
           await player2.send("\n\nYour hand - " + str(player2_hand_display))
-          await ctx.send("It is " + player2.mention + " turn. Choose a card to play by typing the number to the left off the card, type 0 to draw a card or -1 to call uno")
+          await ctx.send("Choose a card to play by typing the number to the left off the card, type 0 to draw a card or -1 to call uno")
           def checkTwo(msg):
             return msg.author == player2
           msg = await self.bot.wait_for("message", check = checkTwo)
           resp = int(msg.content)
           if resp <= len(player2_hand) and resp > 0:
             current_card = player2_hand.pop((resp-1))
+            if len(player1_hand) == 0:
+               ctx.send(player2.mentions + " wins. Congratulations!")
+               members = await functions.get_user_data(guild)
+               await functions.add_coins(members, player2, 25)
+               await functions.update_file(guild, members)
+               playing = False
             card_splits = current_card.split(" ")
             current_color = card_splits[0]
             current_value = card_splits[1]
@@ -371,23 +387,10 @@ class gameCog(commands.Cog):
                 num = num + 1
               playerTurn = 0
             else:
+              await ctx.send(player1.mention + " has Uno.")
               playerTurn = 1
           else:
             await player2.send("The number was invalid. Try again")
-      if len(player1_hand) == 0 or len(player2_hand) == 0 or len(unoDeck) == 0:
-        playing = False
-        if len(player1_hand) == 0:
-          await ctx.send("Congratulations. " + player1.mention + " wins. You won 25 coins")
-          members = await functions.get_user_data(guild)
-          await functions.add_coins(members, player1, 25)
-          await functions.update_file(guild, members)
-        elif len(player2_hand) == 0:
-          await ctx.send("Congratulations. " + player2.mention + " wins. You won 25 coins")
-          members = await functions.get_user_data(guild)
-          await functions.add_coins(members, player2, 25)
-          await functions.update_file(guild, members)
-        elif len(unoDeck) == 0:
-          await ctx.send("Y'all ran out of cards. Better luck next time")
     else:
       await ctx.send(player2.mention + " has denied your request for Uno. Try again later")
   
