@@ -175,7 +175,7 @@ class gameCog(commands.Cog):
       await functions.update_db(members, pets, boosts)
     if attempts == 6:
        print("It got to fail if")
-      await ctx.send("Nice Try. You will get it next time. The mystery word was " + str(random_word))
+       await ctx.send("Nice Try. You will get it next time. The mystery word was " + str(random_word))
 
   @commands.command()
   async def guessnumber(self, ctx):
