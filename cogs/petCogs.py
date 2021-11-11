@@ -68,12 +68,14 @@ class petCog(commands.Cog):
           return msg.author == ctx.author and msg.content.isnumeric()
         msg = await self.bot.wait_for("message", check = check)
         index = int(msg.content)
+        print("index - " + str(index))
         while index > len(petsList):
           await ctx.send(str(index) + " is not a valid option. Try again")
-          await ctx.send(str(pet_display) + " Type the number for the item you want to buy.")
+          await ctx.send(str(pet_display) + " Type the number for the pet you want to own.")
           msg = await self.bot.wait_for("message", check = check)
           index = int(msg.content)
         kind = petsList[(index-1)]
+        print("kind - " + kind)
         await ctx.send("What name do you want to give your pet?")
         def checkTwo(msg):
           return msg.author == ctx.author
