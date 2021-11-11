@@ -107,7 +107,9 @@ class gameCog(commands.Cog):
     def check(msg):
       return msg.author == ctx.author and msg.channel == ctx.channel
     msg = await self.bot.wait_for("message", check = check)
+    print("msgCheck - " + msg.content)
     gotCorrect = await functions.check_answer(msg, ctx, correct_answer, choices)
+    print("gotCorrect - " + gotCorrect)
     if gotCorrect:
       await ctx.send("Congratulations, you got it correct. You just earned 100 coins.", tts = False)
       members = await functions.get_user_data(guild)
