@@ -18,44 +18,44 @@ Hangman_Pics = [
       ===
      ''', 
   '''
-     +----+
+      +----+
   O    |
-       |
         |
-      ===
-  ''', 
-  '''
-     +----+
-  O    |
-  |    |
         |
       ===
   ''', 
   '''
       +----+
-  O     |
- /|     |
-         |
+  O    |
+  |     |
+        |
       ===
   ''', 
   '''
       +----+
   O     |
- /|\    |
+ /|      |
          |
       ===
   ''', 
   '''
-      +----+
+       +----+
   O     |
- /|\    |
+ /|\     |
+         |
+      ===
+  ''', 
+  '''
+       +----+
+  O     |
+ /|\     |
  /       |
       ===
   ''', 
   '''
-      +----+
+       +----+
   O     |
- /|\    |
+ /|\     |
  / \     |
       ===
   ''']
@@ -166,6 +166,7 @@ class gameCog(commands.Cog):
       except Exception as e:
         print(e)
     if mystery_two == random_word:
+      print("It got to correct if")
       await ctx.send("Great job guessing the mystery word " + random_word + ". You just earned 25 coins.")
       members = await functions.get_user_data(guild)
       pets = await functions.get_pet_data()
@@ -173,6 +174,7 @@ class gameCog(commands.Cog):
       await functions.add_coins(members, member, 25, boosts)
       await functions.update_db(members, pets, boosts)
     if attempts == 6:
+       print("It got to fail if")
       await ctx.send("Nice Try. You will get it next time. The mystery word was " + str(random_word))
 
   @commands.command()
