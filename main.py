@@ -90,13 +90,10 @@ async def on_message(message):
 
   members = await functions.get_user_data(guild)
   await functions.update_data(members, user)
-  await functions.update_db(members, pets, boosts)
   members = await functions.get_user_data(guild)
   await functions.add_experience(members, user, 10, boosts)
-  await functions.update_db(members, pets, boosts)
   members = await functions.get_user_data(guild)
   await functions.add_coins(members, user, 10, boosts)
-  await functions.update_db(members, pets, boosts)
   members = await functions.get_user_data(guild)
   await functions.level_up(members, user, chan)
   await functions.update_db(members, pets, boosts)
