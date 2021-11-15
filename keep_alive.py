@@ -7,7 +7,7 @@ app = Flask('__name__')
 def index():
     return "Hello world!"
 
-if __name__ == '__main__':
+if __name__ == 'bot':
   app.run(host='0.0.0.0',port=8080)
 
 def keep_alive():
