@@ -43,7 +43,7 @@ for file in os.listdir('./cogs'):
     client.load_extension(f'cogs.{file[:-3]}')
 
 coin_word = ['owl']
-@tasks.loop(hours=5)
+@tasks.loop(hours=3)
 async def coin_message_sender():
   print("Message is sending")
   if client.is_ready():
