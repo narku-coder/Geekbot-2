@@ -47,6 +47,7 @@ coin_word = ['owl']
 async def coin_message_sender():
   print("Message is sending")
   if client.is_ready():
+    print("Client is ready.")
     coin_word[0] = generate_coin_word()
     print("spec word - " + coin_word[0])
     channel = client.get_channel(800835935490539541)
