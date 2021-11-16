@@ -72,6 +72,7 @@ async def on_message(message):
   global earnNum
   print("earnNum - " + str(earnNum))
   print("msg - " + msg)
+  print("coin word - + str(coin_word[0]))
   lowMsg = msg.lower()
   if coin_word[0] in lowMsg and earnNum == 0:
     await message.channel.send("Congratulations " + message.author.mention + ". You have earned 100 coins for being the first person to type a message containing " + str(coin_word[0]) + ".")
@@ -80,7 +81,7 @@ async def on_message(message):
     members = await functions.get_user_data(guild)
     await functions.add_coins(members, user, 100, boosts)
     await functions.update_db(members, pets, boosts)
-    earnNum = 1
+    #earnNum = 1
     await message.channel.send("This event has ended.")
   
   options = []
