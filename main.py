@@ -19,7 +19,7 @@ sad_words = ["sad", "depressed", "unhappy", "angry", "miserable", "sucks", "shit
             "scared", "afraid"]
 deleted_messages = []
 client = commands.Bot(command_prefix='!')
-earnNum = 0
+earnCoins = True
 
 def generate_coin_word():
   animals_list = open('./textFiles/animals.txt', 'r')
@@ -52,7 +52,7 @@ async def coin_message_sender():
     print("spec word - " + coin_word[0])
     channel = client.get_channel(800835935490539541)
     await channel.send("Here is an opportunity to earn 100 coins. The first person to type a message with this animal - " + str(coin_word[0]) + " - will earn 100 coins.")
-    earnNum = 0
+    earnNum = True
     print("earnNum at message sent - " + str(earnNum))
 #Bot event functions
 
@@ -74,14 +74,14 @@ async def on_message(message):
   print("msg - " + msg)
   print("coin word - " + str(coin_word[0]))
   lowMsg = msg.lower()
-  if coin_word[0] in lowMsg and earnNum == 0:
+  if coin_word[0] in lowMsg and earnNum == True:
     await message.channel.send("Congratulations " + message.author.mention + ". You have earned 100 coins for being the first person to type a message containing " + str(coin_word[0]) + ".")
     print("earnNum in if - " + str(earnNum))
     print("coin message author - " + message.author.name)
     members = await functions.get_user_data(guild)
     await functions.add_coins(members, user, 100, boosts)
     await functions.update_db(members, pets, boosts)
-    #earnNum = 1
+    earnNum = False
     await message.channel.send("This event has ended.")
   
   options = []
