@@ -52,8 +52,8 @@ async def coin_message_sender():
     print("spec word - " + coin_word[0])
     channel = client.get_channel(800835935490539541)
     await channel.send("Here is an opportunity to earn 100 coins. The first person to type a message with this animal - " + str(coin_word[0]) + " - will earn 100 coins.")
-    earnNum = True
-    print("earnNum at message sent - " + str(earnNum))
+    earnCoins = True
+    print("earnCoins at message sent - " + str(earnNum))
 #Bot event functions
 
 @client.event
@@ -69,19 +69,19 @@ async def on_message(message):
   pets = await functions.get_pet_data()
   boosts = await functions.get_boosts_data()
            
-  global earnNum
-  print("earnNum - " + str(earnNum))
+  global earnCoins
+  print("earnNum - " + str(earnCoins))
   print("msg - " + msg)
   print("coin word - " + str(coin_word[0]))
   lowMsg = msg.lower()
-  if coin_word[0] in lowMsg and earnNum == True:
+  if coin_word[0] in lowMsg and earnCoins == True:
     await message.channel.send("Congratulations " + message.author.mention + ". You have earned 100 coins for being the first person to type a message containing " + str(coin_word[0]) + ".")
-    print("earnNum in if - " + str(earnNum))
+    print("earnNum in if - " + str(earnCoins))
     print("coin message author - " + message.author.name)
     members = await functions.get_user_data(guild)
     await functions.add_coins(members, user, 100, boosts)
     await functions.update_db(members, pets, boosts)
-    earnNum = False
+    earnCoins = False
     await message.channel.send("This event has ended.")
   
   options = []
