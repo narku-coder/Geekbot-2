@@ -49,6 +49,8 @@ def addMoves():
   move_set = open('./textFiles/moves.txt', 'r')
   content = move_set.read()
   moves = content.split('\n')
+  size = len(moves)
+  print("size - " + size)
   move_set.close()
   return moves
 
