@@ -50,7 +50,7 @@ def addMoves():
   content = move_set.read()
   moves = content.split('\n')
   size = len(moves)
-  print("size - " + size)
+  print("size - " + str(size))
   move_set.close()
   return moves
 
